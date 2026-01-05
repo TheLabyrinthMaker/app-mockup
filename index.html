@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OutdoorLife - Reduce Screen Time</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Navigation Bar -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" data-screen="home">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg>
+                <span>Home</span>
+            </button>
+            <button class="nav-btn" data-screen="activity">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+                <span>Activity</span>
+            </button>
+            <button class="nav-btn" data-screen="leaderboard">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span>Leaderboard</span>
+            </button>
+            <button class="nav-btn" data-screen="rewards">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="8" r="7"></circle>
+                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+                <span>Rewards</span>
+            </button>
+        </nav>
+
+        <!-- Home Screen -->
+        <div class="screen active" id="home-screen">
+            <div class="header">
+                <h1>Welcome Back! 👋</h1>
+                <p class="subtitle">Your progress today</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card screen-time">
+                    <div class="stat-icon">📱</div>
+                    <div class="stat-content">
+                        <h3>Screen Time</h3>
+                        <p class="stat-value" id="screen-time-value">2h 34m</p>
+                        <div class="stat-change negative">↓ 45m from yesterday</div>
+                    </div>
+                </div>
+
+                <div class="stat-card outdoor-time">
+                    <div class="stat-icon">🌳</div>
+                    <div class="stat-content">
+                        <h3>Outdoor Time</h3>
+                        <p class="stat-value" id="outdoor-time-value">1h 15m</p>
+                        <div class="stat-change positive">↑ 30m from yesterday</div>
+                    </div>
+                </div>
+
+                <div class="stat-card points">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-content">
+                        <h3>Points Earned</h3>
+                        <p class="stat-value" id="points-value">450</p>
+                        <div class="stat-change positive">+75 today</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="daily-goal">
+                <h2>Daily Goal Progress</h2>
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <span>🎯 Outdoor Activity: 90 minutes</span>
+                        <span class="goal-percentage">83%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 83%"></div>
+                    </div>
+                </div>
+
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <span>📵 Screen Time: Under 3 hours</span>
+                        <span class="goal-percentage">85%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="milestones">
+                <h2>Recent Milestones</h2>
+                <div class="milestone-list">
+                    <div class="milestone-item completed">
+                        <span class="milestone-badge">🏆</span>
+                        <div class="milestone-text">
+                            <strong>Week Warrior</strong>
+                            <p>7 days of outdoor activity</p>
+                        </div>
+                    </div>
+                    <div class="milestone-item">
+                        <span class="milestone-badge locked">🔒</span>
+                        <div class="milestone-text">
+                            <strong>Nature Explorer</strong>
+                            <p>Visit 10 different outdoor locations</p>
+                            <div class="milestone-progress">7/10</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Tracker Screen -->
+        <div class="screen" id="activity-screen">
+            <div class="header">
+                <h1>Activity Tracker 🏃</h1>
+                <p class="subtitle">Track your outdoor sessions</p>
+            </div>
+
+            <div class="current-session">
+                <h2>Current Session</h2>
+                <div class="session-display">
+                    <div class="session-timer" id="session-timer">00:00:00</div>
+                    <p class="session-status" id="session-status">Ready to start</p>
+                    <button class="btn-primary btn-large" id="start-stop-btn">Start Session</button>
+                </div>
+            </div>
+
+            <div class="activity-types">
+                <h3>Select Activity Type</h3>
+                <div class="activity-grid">
+                    <button class="activity-type-btn active" data-activity="walking">
+                        <span class="activity-icon">🚶</span>
+                        <span>Walking</span>
+                    </button>
+                    <button class="activity-type-btn" data-activity="running">
+                        <span class="activity-icon">🏃</span>
+                        <span>Running</span>
+                    </button>
+                    <button class="activity-type-btn" data-activity="hiking">
+                        <span class="activity-icon">🥾</span>
+                        <span>Hiking</span>
+                    </button>
+                    <button class="activity-type-btn" data-activity="cycling">
+                        <span class="activity-icon">🚴</span>
+                        <span>Cycling</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="recent-activities">
+                <h2>Recent Activities</h2>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-info">
+                            <span class="activity-icon">🚶</span>
+                            <div>
+                                <strong>Morning Walk</strong>
+                                <p>45 minutes • 75 points</p>
+                            </div>
+                        </div>
+                        <span class="activity-time">Today</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-info">
+                            <span class="activity-icon">🏃</span>
+                            <div>
+                                <strong>Evening Run</strong>
+                                <p>30 minutes • 60 points</p>
+                            </div>
+                        </div>
+                        <span class="activity-time">Yesterday</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-info">
+                            <span class="activity-icon">🥾</span>
+                            <div>
+                                <strong>Trail Hiking</strong>
+                                <p>2 hours • 200 points</p>
+                            </div>
+                        </div>
+                        <span class="activity-time">2 days ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard Screen -->
+        <div class="screen" id="leaderboard-screen">
+            <div class="header">
+                <h1>Leaderboard 🏆</h1>
+                <p class="subtitle">See how you rank against friends</p>
+            </div>
+
+            <div class="leaderboard-period">
+                <button class="period-btn active">Week</button>
+                <button class="period-btn">Month</button>
+                <button class="period-btn">All Time</button>
+            </div>
+
+            <div class="leaderboard-list">
+                <div class="leaderboard-item rank-1">
+                    <div class="rank-badge gold">1</div>
+                    <div class="user-avatar">👨‍💼</div>
+                    <div class="user-info">
+                        <strong>Alex Thompson</strong>
+                        <p>1,250 points</p>
+                    </div>
+                    <div class="user-stats">
+                        <span class="stat-badge">🔥 15 day streak</span>
+                    </div>
+                </div>
+
+                <div class="leaderboard-item rank-2">
+                    <div class="rank-badge silver">2</div>
+                    <div class="user-avatar">👩‍🦰</div>
+                    <div class="user-info">
+                        <strong>Sarah Johnson</strong>
+                        <p>980 points</p>
+                    </div>
+                    <div class="user-stats">
+                        <span class="stat-badge">🔥 12 day streak</span>
+                    </div>
+                </div>
+
+                <div class="leaderboard-item rank-3">
+                    <div class="rank-badge bronze">3</div>
+                    <div class="user-avatar">👨‍🎓</div>
+                    <div class="user-info">
+                        <strong>Mike Davis</strong>
+                        <p>875 points</p>
+                    </div>
+                    <div class="user-stats">
+                        <span class="stat-badge">🔥 8 day streak</span>
+                    </div>
+                </div>
+
+                <div class="leaderboard-item you">
+                    <div class="rank-badge">4</div>
+                    <div class="user-avatar">😊</div>
+                    <div class="user-info">
+                        <strong>You</strong>
+                        <p>450 points</p>
+                    </div>
+                    <div class="user-stats">
+                        <span class="stat-badge">🔥 5 day streak</span>
+                    </div>
+                </div>
+
+                <div class="leaderboard-item">
+                    <div class="rank-badge">5</div>
+                    <div class="user-avatar">👩‍💻</div>
+                    <div class="user-info">
+                        <strong>Emily Chen</strong>
+                        <p>420 points</p>
+                    </div>
+                    <div class="user-stats">
+                        <span class="stat-badge">🔥 3 day streak</span>
+                    </div>
+                </div>
+
+                <div class="leaderboard-item">
+                    <div class="rank-badge">6</div>
+                    <div class="user-avatar">👨‍🎨</div>
+                    <div class="user-info">
+                        <strong>John Martinez</strong>
+                        <p>385 points</p>
+                    </div>
+                    <div class="user-stats">
+                        <span class="stat-badge">🔥 7 day streak</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="leaderboard-tips">
+                <p>💡 Complete more outdoor activities to climb the ranks!</p>
+            </div>
+        </div>
+
+        <!-- Rewards Screen -->
+        <div class="screen" id="rewards-screen">
+            <div class="header">
+                <h1>Rewards 🎁</h1>
+                <p class="subtitle">Redeem your hard-earned points</p>
+            </div>
+
+            <div class="points-balance">
+                <h2>Available Points</h2>
+                <p class="balance-value">450</p>
+            </div>
+
+            <div class="rewards-section">
+                <h2>Unlock Badges</h2>
+                <div class="badges-grid">
+                    <div class="badge-item unlocked">
+                        <div class="badge-icon">🌟</div>
+                        <p>First Steps</p>
+                    </div>
+                    <div class="badge-item unlocked">
+                        <div class="badge-icon">🔥</div>
+                        <p>5 Day Streak</p>
+                    </div>
+                    <div class="badge-item unlocked">
+                        <div class="badge-icon">🏆</div>
+                        <p>Week Warrior</p>
+                    </div>
+                    <div class="badge-item locked">
+                        <div class="badge-icon">💎</div>
+                        <p>Nature Master</p>
+                        <span class="badge-requirement">500 pts</span>
+                    </div>
+                    <div class="badge-item locked">
+                        <div class="badge-icon">👑</div>
+                        <p>Outdoor King</p>
+                        <span class="badge-requirement">1000 pts</span>
+                    </div>
+                    <div class="badge-item locked">
+                        <div class="badge-icon">🌈</div>
+                        <p>Rainbow Runner</p>
+                        <span class="badge-requirement">2000 pts</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rewards-section">
+                <h2>Redeem Rewards</h2>
+                <div class="rewards-list">
+                    <div class="reward-item">
+                        <div class="reward-info">
+                            <span class="reward-icon">☕</span>
+                            <div>
+                                <strong>Coffee Shop Coupon</strong>
+                                <p>$5 off your next purchase</p>
+                            </div>
+                        </div>
+                        <button class="btn-reward">
+                            <span class="reward-cost">200 pts</span>
+                        </button>
+                    </div>
+
+                    <div class="reward-item">
+                        <div class="reward-info">
+                            <span class="reward-icon">🎬</span>
+                            <div>
+                                <strong>Movie Ticket</strong>
+                                <p>Free movie ticket voucher</p>
+                            </div>
+                        </div>
+                        <button class="btn-reward">
+                            <span class="reward-cost">400 pts</span>
+                        </button>
+                    </div>
+
+                    <div class="reward-item disabled">
+                        <div class="reward-info">
+                            <span class="reward-icon">🍕</span>
+                            <div>
+                                <strong>Restaurant Voucher</strong>
+                                <p>$20 dining credit</p>
+                            </div>
+                        </div>
+                        <button class="btn-reward" disabled>
+                            <span class="reward-cost">600 pts</span>
+                        </button>
+                    </div>
+
+                    <div class="reward-item disabled">
+                        <div class="reward-info">
+                            <span class="reward-icon">🎒</span>
+                            <div>
+                                <strong>Outdoor Gear</strong>
+                                <p>25% off outdoor equipment</p>
+                            </div>
+                        </div>
+                        <button class="btn-reward" disabled>
+                            <span class="reward-cost">800 pts</span>
+                        </button>
+                    </div>
+
+                    <div class="reward-item disabled">
+                        <div class="reward-info">
+                            <span class="reward-icon">✈️</span>
+                            <div>
+                                <strong>Weekend Getaway</strong>
+                                <p>2-night nature retreat</p>
+                            </div>
+                        </div>
+                        <button class="btn-reward" disabled>
+                            <span class="reward-cost">2000 pts</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
