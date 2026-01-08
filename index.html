@@ -57,6 +57,44 @@
                         <p class="timer-label">Exercise Time</p>
                     </div>
 
+                    <div class="goals-progress">
+                        <h3 class="goals-title">Session Goals</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                            <div class="progress-milestones">
+                                <div class="milestone" data-time="300" data-reward="25">
+                                    <div class="milestone-marker">
+                                        <span class="milestone-icon">🎯</span>
+                                    </div>
+                                    <div class="milestone-label">5 min<br>+25 coins</div>
+                                </div>
+                                <div class="milestone" data-time="600" data-reward="50">
+                                    <div class="milestone-marker">
+                                        <span class="milestone-icon">⭐</span>
+                                    </div>
+                                    <div class="milestone-label">10 min<br>+50 coins</div>
+                                </div>
+                                <div class="milestone" data-time="900" data-reward="75">
+                                    <div class="milestone-marker">
+                                        <span class="milestone-icon">🔥</span>
+                                    </div>
+                                    <div class="milestone-label">15 min<br>+75 coins</div>
+                                </div>
+                                <div class="milestone" data-time="1800" data-reward="150">
+                                    <div class="milestone-marker">
+                                        <span class="milestone-icon">💎</span>
+                                    </div>
+                                    <div class="milestone-label">30 min<br>+150 coins</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goals-info">
+                            <p>⏱️ Daily Goal: <span id="daily-progress">0</span> / 30 minutes</p>
+                        </div>
+                    </div>
+
                     <div class="activity-selector">
                         <label for="activity-type">Select Activity:</label>
                         <select id="activity-type" class="activity-dropdown">

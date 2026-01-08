@@ -5,6 +5,8 @@ let appState = {
     timerInterval: null,
     elapsedTime: 0,
     currentActivity: 'running',
+    dailyExerciseTime: 0,
+    reachedMilestones: [],
     contacts: [
         { id: 'mom', name: 'Mom', number: '+1 555-0123' },
         { id: 'emergency', name: 'Emergency Services', number: '911' },
@@ -28,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeRewards();
     initializeLeaderboard();
     updateCurrencyDisplay();
+    initializeGoalsProgress();
 });
 
 // Tab Navigation
@@ -123,16 +126,19 @@ function completeLockSession() {
     // Show notification
     showNotification(`🎉 Exercise complete! You earned ${coinsEarned} coins!`);
 
-    // Reset timer display
+    // Reset timer display and progress
     setTimeout(() => {
         updateTimerDisplay(0);
+        resetGoalsProgress();
     }, 2000);
 }
 
 function startTimer() {
     appState.timerInterval = setInterval(() => {
         appState.elapsedTime++;
+        appState.dailyExerciseTime++;
         updateTimerDisplay(appState.elapsedTime);
+        updateGoalsProgress();
     }, 1000);
 }
 
@@ -434,6 +440,79 @@ document.querySelector('.app-title').addEventListener('click', () => {
         tapCount = 0;
     }
 });
+
+// Goals Progress Functions
+function initializeGoalsProgress() {
+    updateGoalsProgress();
+    updateDailyProgress();
+}
+
+function updateGoalsProgress() {
+    const progressFill = document.getElementById('progress-fill');
+    const milestones = document.querySelectorAll('.milestone');
+    
+    // Update progress bar based on elapsed time
+    // Max progress bar is 30 minutes (1800 seconds)
+    const maxTime = 1800;
+    const progressPercentage = Math.min((appState.elapsedTime / maxTime) * 100, 100);
+    
+    if (progressFill) {
+        progressFill.style.width = `${progressPercentage}%`;
+    }
+    
+    // Check and update milestones
+    milestones.forEach(milestone => {
+        const targetTime = parseInt(milestone.dataset.time);
+        const reward = parseInt(milestone.dataset.reward);
+        
+        if (appState.elapsedTime >= targetTime) {
+            if (!milestone.classList.contains('completed') && !appState.reachedMilestones.includes(targetTime)) {
+                // Milestone reached!
+                milestone.classList.add('reached');
+                
+                // Add bonus coins
+                appState.currency += reward;
+                updateCurrencyDisplay();
+                
+                // Mark as completed after animation
+                setTimeout(() => {
+                    milestone.classList.remove('reached');
+                    milestone.classList.add('completed');
+                    appState.reachedMilestones.push(targetTime);
+                }, 500);
+                
+                // Show notification
+                const minutes = targetTime / 60;
+                showNotification(`🎯 Milestone reached! ${minutes} minutes completed. +${reward} coins!`);
+            } else if (!milestone.classList.contains('completed')) {
+                milestone.classList.add('completed');
+            }
+        }
+    });
+    
+    updateDailyProgress();
+}
+
+function updateDailyProgress() {
+    const dailyProgressSpan = document.getElementById('daily-progress');
+    if (dailyProgressSpan) {
+        const minutes = Math.floor(appState.dailyExerciseTime / 60);
+        dailyProgressSpan.textContent = minutes;
+    }
+}
+
+function resetGoalsProgress() {
+    appState.reachedMilestones = [];
+    const milestones = document.querySelectorAll('.milestone');
+    milestones.forEach(milestone => {
+        milestone.classList.remove('reached', 'completed');
+    });
+    
+    const progressFill = document.getElementById('progress-fill');
+    if (progressFill) {
+        progressFill.style.width = '0%';
+    }
+}
 
 // Console greeting
 console.log('%c🔒 ActiveLock Fitness App', 'font-size: 20px; font-weight: bold; color: #6366f1;');
