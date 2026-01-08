@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ActiveLock - Gamified Fitness App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">🔒 ActiveLock</h1>
+                <div class="currency-display">
+                    <span class="coin-icon">💰</span>
+                    <span id="currency-amount">500</span> coins
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="lock">
+                <span class="tab-icon">🔒</span>
+                <span>Lock</span>
+            </button>
+            <button class="nav-tab" data-tab="rewards">
+                <span class="tab-icon">🎁</span>
+                <span>Rewards</span>
+            </button>
+            <button class="nav-tab" data-tab="leaderboard">
+                <span class="tab-icon">🏆</span>
+                <span>Leaderboard</span>
+            </button>
+            <button class="nav-tab" data-tab="settings">
+                <span class="tab-icon">⚙️</span>
+                <span>Settings</span>
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Lock Tab -->
+            <section id="lock-tab" class="tab-content active">
+                <div class="lock-section">
+                    <h2>Smart Phone Lock</h2>
+                    <p class="section-description">Lock your phone during exercise and earn rewards!</p>
+                    
+                    <div class="lock-status" id="lock-status">
+                        <div class="status-icon unlocked">🔓</div>
+                        <p class="status-text">Phone Unlocked</p>
+                    </div>
+
+                    <div class="timer-display" id="timer-display">
+                        <div class="timer">00:00:00</div>
+                        <p class="timer-label">Exercise Time</p>
+                    </div>
+
+                    <div class="activity-selector">
+                        <label for="activity-type">Select Activity:</label>
+                        <select id="activity-type" class="activity-dropdown">
+                            <option value="running">🏃 Running</option>
+                            <option value="walking">🚶 Walking</option>
+                            <option value="cycling">🚴 Cycling</option>
+                            <option value="gym">💪 Gym Workout</option>
+                            <option value="yoga">🧘 Yoga</option>
+                        </select>
+                    </div>
+
+                    <div class="lock-controls">
+                        <button id="start-lock-btn" class="btn btn-primary">
+                            Start Exercise & Lock
+                        </button>
+                        <button id="stop-lock-btn" class="btn btn-secondary" style="display: none;">
+                            Complete Exercise
+                        </button>
+                    </div>
+
+                    <div class="reward-preview">
+                        <p>🎯 Complete this session to earn <strong>50 coins</strong></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rewards Tab -->
+            <section id="rewards-tab" class="tab-content">
+                <div class="rewards-section">
+                    <h2>Rewards & Achievements</h2>
+                    
+                    <div class="stats-overview">
+                        <div class="stat-card">
+                            <div class="stat-value">1,250</div>
+                            <div class="stat-label">Total Coins</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">Workouts</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">8</div>
+                            <div class="stat-label">Achievements</div>
+                        </div>
+                    </div>
+
+                    <div class="achievements-container">
+                        <h3>🏆 Achievements</h3>
+                        <div class="achievements-grid">
+                            <div class="achievement-card unlocked">
+                                <div class="achievement-icon">🔥</div>
+                                <div class="achievement-name">First Steps</div>
+                                <div class="achievement-desc">Complete your first workout</div>
+                            </div>
+                            <div class="achievement-card unlocked">
+                                <div class="achievement-icon">💯</div>
+                                <div class="achievement-name">Century Club</div>
+                                <div class="achievement-desc">Earn 100 coins</div>
+                            </div>
+                            <div class="achievement-card unlocked">
+                                <div class="achievement-icon">⚡</div>
+                                <div class="achievement-name">Speed Demon</div>
+                                <div class="achievement-desc">Complete 5 running sessions</div>
+                            </div>
+                            <div class="achievement-card locked">
+                                <div class="achievement-icon">🌟</div>
+                                <div class="achievement-name">Golden Streak</div>
+                                <div class="achievement-desc">7-day workout streak</div>
+                            </div>
+                            <div class="achievement-card locked">
+                                <div class="achievement-icon">👑</div>
+                                <div class="achievement-name">Champion</div>
+                                <div class="achievement-desc">Reach #1 on leaderboard</div>
+                            </div>
+                            <div class="achievement-card locked">
+                                <div class="achievement-icon">💎</div>
+                                <div class="achievement-name">Diamond Status</div>
+                                <div class="achievement-desc">Earn 10,000 coins</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="customizations-container">
+                        <h3>🎨 Customizations</h3>
+                        <div class="customization-grid">
+                            <div class="customization-card owned">
+                                <div class="customization-preview" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    <span>Purple Dream</span>
+                                </div>
+                                <div class="customization-info">
+                                    <div class="customization-name">Purple Dream Theme</div>
+                                    <div class="customization-status owned-badge">Owned</div>
+                                </div>
+                            </div>
+                            <div class="customization-card">
+                                <div class="customization-preview" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                    <span>Sunset Glow</span>
+                                </div>
+                                <div class="customization-info">
+                                    <div class="customization-name">Sunset Glow Theme</div>
+                                    <div class="customization-price">💰 200 coins</div>
+                                </div>
+                                <button class="btn btn-small unlock-btn" data-price="200">Unlock</button>
+                            </div>
+                            <div class="customization-card">
+                                <div class="customization-preview" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                                    <span>Ocean Blue</span>
+                                </div>
+                                <div class="customization-info">
+                                    <div class="customization-name">Ocean Blue Theme</div>
+                                    <div class="customization-price">💰 300 coins</div>
+                                </div>
+                                <button class="btn btn-small unlock-btn" data-price="300">Unlock</button>
+                            </div>
+                            <div class="customization-card">
+                                <div class="customization-preview" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                                    <span>Golden Hour</span>
+                                </div>
+                                <div class="customization-info">
+                                    <div class="customization-name">Golden Hour Theme</div>
+                                    <div class="customization-price">💰 500 coins</div>
+                                </div>
+                                <button class="btn btn-small unlock-btn" data-price="500">Unlock</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Leaderboard Tab -->
+            <section id="leaderboard-tab" class="tab-content">
+                <div class="leaderboard-section">
+                    <h2>🏆 Leaderboard</h2>
+                    <p class="section-description">Compete with other users worldwide!</p>
+                    
+                    <div class="leaderboard-filters">
+                        <button class="filter-btn active" data-filter="global">Global</button>
+                        <button class="filter-btn" data-filter="friends">Friends</button>
+                        <button class="filter-btn" data-filter="weekly">This Week</button>
+                    </div>
+
+                    <div class="leaderboard-list">
+                        <div class="leaderboard-item rank-1">
+                            <div class="rank">🥇</div>
+                            <div class="user-avatar">👤</div>
+                            <div class="user-info">
+                                <div class="username">FitnessKing92</div>
+                                <div class="user-stats">2,450 coins • 156 workouts</div>
+                            </div>
+                            <div class="user-score">2,450</div>
+                        </div>
+                        <div class="leaderboard-item rank-2">
+                            <div class="rank">🥈</div>
+                            <div class="user-avatar">👤</div>
+                            <div class="user-info">
+                                <div class="username">RunnerGirl88</div>
+                                <div class="user-stats">2,120 coins • 142 workouts</div>
+                            </div>
+                            <div class="user-score">2,120</div>
+                        </div>
+                        <div class="leaderboard-item rank-3">
+                            <div class="rank">🥉</div>
+                            <div class="user-avatar">👤</div>
+                            <div class="user-info">
+                                <div class="username">GymBeast</div>
+                                <div class="user-stats">1,890 coins • 98 workouts</div>
+                            </div>
+                            <div class="user-score">1,890</div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div class="rank">4</div>
+                            <div class="user-avatar">👤</div>
+                            <div class="user-info">
+                                <div class="username">YogaMaster</div>
+                                <div class="user-stats">1,650 coins • 89 workouts</div>
+                            </div>
+                            <div class="user-score">1,650</div>
+                        </div>
+                        <div class="leaderboard-item current-user">
+                            <div class="rank">5</div>
+                            <div class="user-avatar">👤</div>
+                            <div class="user-info">
+                                <div class="username">You</div>
+                                <div class="user-stats">1,250 coins • 24 workouts</div>
+                            </div>
+                            <div class="user-score">1,250</div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div class="rank">6</div>
+                            <div class="user-avatar">👤</div>
+                            <div class="user-info">
+                                <div class="username">CycleChamp</div>
+                                <div class="user-stats">1,100 coins • 67 workouts</div>
+                            </div>
+                            <div class="user-score">1,100</div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div class="rank">7</div>
+                            <div class="user-avatar">👤</div>
+                            <div class="user-info">
+                                <div class="username">ActiveLife23</div>
+                                <div class="user-stats">980 coins • 55 workouts</div>
+                            </div>
+                            <div class="user-score">980</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Tab -->
+            <section id="settings-tab" class="tab-content">
+                <div class="settings-section">
+                    <h2>⚙️ Settings</h2>
+                    
+                    <div class="settings-group">
+                        <h3>📱 Notification Blocking</h3>
+                        <p class="settings-description">Block notifications during exercise, except from selected contacts</p>
+                        
+                        <div class="setting-item">
+                            <label class="toggle-label">
+                                <span>Enable notification blocking</span>
+                                <input type="checkbox" id="block-notifications" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="contacts-section" id="contacts-section">
+                            <h4>Allowed Contacts</h4>
+                            <p class="contacts-description">These contacts can reach you during exercise</p>
+                            
+                            <div class="contact-list">
+                                <div class="contact-item">
+                                    <div class="contact-avatar">👤</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Mom</div>
+                                        <div class="contact-number">+1 555-0123</div>
+                                    </div>
+                                    <button class="btn-icon remove-contact" data-contact="mom">✕</button>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-avatar">👤</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Emergency Services</div>
+                                        <div class="contact-number">911</div>
+                                    </div>
+                                    <button class="btn-icon remove-contact" data-contact="emergency">✕</button>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-avatar">👤</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Best Friend</div>
+                                        <div class="contact-number">+1 555-0456</div>
+                                    </div>
+                                    <button class="btn-icon remove-contact" data-contact="friend">✕</button>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-secondary" id="add-contact-btn">
+                                + Add Contact
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>🎯 Activity Goals</h3>
+                        
+                        <div class="setting-item">
+                            <label>
+                                <span>Daily workout goal</span>
+                                <input type="number" id="daily-goal" value="30" min="10" max="180">
+                                <span class="input-suffix">minutes</span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <label>
+                                <span>Weekly workout target</span>
+                                <input type="number" id="weekly-goal" value="5" min="1" max="7">
+                                <span class="input-suffix">days</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>🔔 Preferences</h3>
+                        
+                        <div class="setting-item">
+                            <label class="toggle-label">
+                                <span>Sound effects</span>
+                                <input type="checkbox" id="sound-effects" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <label class="toggle-label">
+                                <span>Vibration feedback</span>
+                                <input type="checkbox" id="vibration" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <label class="toggle-label">
+                                <span>Show on leaderboard</span>
+                                <input type="checkbox" id="leaderboard-visible" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Notification Toast -->
+        <div class="notification-toast" id="notification-toast">
+            <span class="toast-icon">✓</span>
+            <span class="toast-message"></span>
+        </div>
+
+        <!-- Add Contact Modal -->
+        <div class="modal" id="add-contact-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add Contact</h3>
+                    <button class="modal-close" id="close-modal">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="contact-name">Contact Name</label>
+                        <input type="text" id="contact-name" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-phone">Phone Number</label>
+                        <input type="tel" id="contact-phone" placeholder="+1 555-0000">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="cancel-contact">Cancel</button>
+                    <button class="btn btn-primary" id="save-contact">Add Contact</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
