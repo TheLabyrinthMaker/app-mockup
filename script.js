@@ -231,7 +231,10 @@ function initializeSettings() {
 }
 
 function removeContact(contactId) {
-    const contactItem = document.querySelector(`[data-contact="${contactId}"]`).closest('.contact-item');
+    const contactButton = document.querySelector(`[data-contact="${contactId}"]`);
+    if (!contactButton) return; // Guard against missing element
+    
+    const contactItem = contactButton.closest('.contact-item');
     contactItem.style.opacity = '0';
     contactItem.style.transform = 'translateX(-20px)';
 
@@ -345,13 +348,29 @@ function showNotification(message) {
 }
 
 // Simulate background activity tracking (for demo purposes)
-setInterval(() => {
+let activityCheckInterval = setInterval(() => {
     if (appState.isLocked) {
         // Simulate activity verification
         // In a real app, this would use actual sensors/GPS
         console.log('Activity verified:', appState.currentActivity);
     }
 }, 5000);
+
+// Clean up interval when page is hidden/closed
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden && !appState.isLocked) {
+        if (activityCheckInterval) {
+            clearInterval(activityCheckInterval);
+            activityCheckInterval = null;
+        }
+    } else if (!document.hidden && !activityCheckInterval) {
+        activityCheckInterval = setInterval(() => {
+            if (appState.isLocked) {
+                console.log('Activity verified:', appState.currentActivity);
+            }
+        }, 5000);
+    }
+});
 
 // Prevent accidental page close during exercise
 window.addEventListener('beforeunload', (e) => {
