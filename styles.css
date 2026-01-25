@@ -82,6 +82,35 @@ body {
     background-clip: text;
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-profile-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.header-profile-avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.header-avatar-emoji {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
 .currency-display {
     display: flex;
     align-items: center;
@@ -1500,14 +1529,21 @@ h3 {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 1.5rem;
     margin-top: 1.5rem;
+    justify-items: center;
 }
 
 .profile-badge {
     background: var(--surface-light);
-    border-radius: 12px;
-    padding: 1.5rem;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
     text-align: center;
-    border: 2px solid var(--border-color);
+    border: 3px solid var(--border-color);
     transition: all 0.3s ease;
     cursor: pointer;
 }
@@ -1518,7 +1554,7 @@ h3 {
 }
 
 .profile-badge.earned:hover {
-    transform: translateY(-4px);
+    transform: translateY(-4px) scale(1.05);
     box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
 }
 
@@ -1530,13 +1566,14 @@ h3 {
 .badge-icon-large {
     font-size: 2.5rem;
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
 }
 
 .badge-name {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--text-primary);
+    line-height: 1.2;
 }
 
 /* Profile Customization */

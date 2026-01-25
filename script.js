@@ -737,6 +737,7 @@ function initializeProfileCustomization() {
     const avatarPicker = document.querySelectorAll('.avatar-picker-btn');
     const activityPicker = document.querySelectorAll('.activity-picker-btn');
     const profileAvatarDisplay = document.getElementById('profile-avatar-display');
+    const headerAvatar = document.querySelector('.header-avatar-emoji');
     const usernameInput = document.getElementById('profile-username-input');
     const saveUsernameBtn = document.getElementById('save-username-btn');
     const profileUsername = document.getElementById('profile-username');
@@ -751,6 +752,9 @@ function initializeProfileCustomization() {
     // Set initial values
     if (profileAvatarDisplay) {
         profileAvatarDisplay.textContent = savedAvatar;
+    }
+    if (headerAvatar) {
+        headerAvatar.textContent = savedAvatar;
     }
     if (usernameInput) {
         usernameInput.value = savedUsername;
@@ -785,6 +789,9 @@ function initializeProfileCustomization() {
             
             if (profileAvatarDisplay) {
                 profileAvatarDisplay.textContent = avatar;
+            }
+            if (headerAvatar) {
+                headerAvatar.textContent = avatar;
             }
             
             localStorage.setItem('profileAvatar', avatar);
