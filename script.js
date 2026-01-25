@@ -838,12 +838,15 @@ function initializeProfileCustomization() {
 function initializeShop() {
     const shopCategoryBtns = document.querySelectorAll('.shop-category-btn');
     const shopBuyBtns = document.querySelectorAll('.shop-buy-btn');
-    const currencyAmount = document.getElementById('currency-amount');
     const shopCurrency = document.getElementById('shop-currency');
     
     // Load purchased items from localStorage
     let purchasedItems = JSON.parse(localStorage.getItem('purchasedItems') || '[]');
-    let coins = parseInt(localStorage.getItem('coins') || '1250');
+    
+    // Sync shop currency display with appState
+    if (shopCurrency) {
+        shopCurrency.textContent = appState.currency;
+    }
     
     // Update UI for purchased items
     purchasedItems.forEach(itemId => {
@@ -892,20 +895,19 @@ function initializeShop() {
             const itemType = btn.dataset.type;
             
             // Check if user has enough coins
-            if (coins < price) {
-                showNotification(`Not enough coins! You need ${price - coins} more coins.`, 'error');
+            if (appState.currency < price) {
+                showNotification(`Not enough coins! You need ${price - appState.currency} more coins.`);
                 return;
             }
             
             // Confirm purchase
             if (confirm(`Purchase ${itemName} for ${price} coins?`)) {
                 // Deduct coins
-                coins -= price;
-                localStorage.setItem('coins', coins.toString());
+                appState.currency -= price;
+                updateCurrencyDisplay();
                 
-                // Update currency display
-                if (currencyAmount) currencyAmount.textContent = coins;
-                if (shopCurrency) shopCurrency.textContent = coins;
+                // Update shop currency display
+                if (shopCurrency) shopCurrency.textContent = appState.currency;
                 
                 // Mark as purchased
                 purchasedItems.push(itemId);
@@ -922,7 +924,7 @@ function initializeShop() {
                 btn.disabled = true;
                 
                 // Show success message
-                showNotification(`✨ ${itemName} purchased successfully!`, 'success');
+                showNotification(`✨ ${itemName} purchased successfully!`);
                 
                 // Apply item effects based on type
                 applyItemEffect(itemType, itemId);
@@ -942,23 +944,23 @@ function applyItemEffect(type, itemId) {
                 activatedAt: Date.now()
             });
             localStorage.setItem('activeBoosters', JSON.stringify(activeBoosters));
-            showNotification('🚀 Booster activated!', 'success');
+            showNotification('🚀 Booster activated!');
             break;
         case 'title':
             // Set as active title
             localStorage.setItem('activeTitle', itemId);
-            showNotification('👑 Title equipped!', 'success');
+            showNotification('👑 Title equipped!');
             break;
         case 'frame':
             // Set as active frame
             localStorage.setItem('activeFrame', itemId);
-            showNotification('🖼️ Frame equipped!', 'success');
+            showNotification('🖼️ Frame equipped!');
             break;
         case 'special':
-            showNotification('✨ Special item unlocked!', 'success');
+            showNotification('✨ Special item unlocked!');
             break;
         case 'theme':
-            showNotification('🎨 Theme unlocked! Visit Rewards to apply it.', 'success');
+            showNotification('🎨 Theme unlocked! Visit Rewards to apply it.');
             break;
     }
 }
