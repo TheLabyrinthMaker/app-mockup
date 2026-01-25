@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeRestTimer();
     initializeRoutesFilter();
     initializeProfileCustomization();
+    initializeShop();
 });
 
 // Tab Navigation
@@ -830,5 +831,134 @@ function initializeProfileCustomization() {
             localStorage.setItem('fitnessGoal', fitnessGoalSelect.value);
             showNotification('Fitness goal updated!');
         });
+    }
+}
+
+// Shop Functionality
+function initializeShop() {
+    const shopCategoryBtns = document.querySelectorAll('.shop-category-btn');
+    const shopBuyBtns = document.querySelectorAll('.shop-buy-btn');
+    const currencyAmount = document.getElementById('currency-amount');
+    const shopCurrency = document.getElementById('shop-currency');
+    
+    // Load purchased items from localStorage
+    let purchasedItems = JSON.parse(localStorage.getItem('purchasedItems') || '[]');
+    let coins = parseInt(localStorage.getItem('coins') || '1250');
+    
+    // Update UI for purchased items
+    purchasedItems.forEach(itemId => {
+        const itemButton = document.querySelector(`[data-item="${itemId}"]`);
+        if (itemButton) {
+            const shopItem = itemButton.closest('.shop-item');
+            shopItem.classList.add('owned');
+            const priceDiv = shopItem.querySelector('.shop-item-price');
+            if (priceDiv) {
+                priceDiv.innerHTML = '<span class="owned-badge">Owned</span>';
+            }
+            itemButton.textContent = 'Owned';
+            itemButton.disabled = true;
+        }
+    });
+    
+    // Category filtering
+    shopCategoryBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const category = btn.dataset.category;
+            
+            // Update active button
+            shopCategoryBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Show/hide sections
+            const sections = document.querySelectorAll('.shop-category-section');
+            sections.forEach(section => {
+                if (category === 'all') {
+                    section.style.display = 'block';
+                } else if (section.dataset.category === category) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        });
+    });
+    
+    // Purchase functionality
+    shopBuyBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const itemName = btn.closest('.shop-item').querySelector('.shop-item-name').textContent;
+            const price = parseInt(btn.dataset.price);
+            const itemId = btn.dataset.item;
+            const itemType = btn.dataset.type;
+            
+            // Check if user has enough coins
+            if (coins < price) {
+                showNotification(`Not enough coins! You need ${price - coins} more coins.`, 'error');
+                return;
+            }
+            
+            // Confirm purchase
+            if (confirm(`Purchase ${itemName} for ${price} coins?`)) {
+                // Deduct coins
+                coins -= price;
+                localStorage.setItem('coins', coins.toString());
+                
+                // Update currency display
+                if (currencyAmount) currencyAmount.textContent = coins;
+                if (shopCurrency) shopCurrency.textContent = coins;
+                
+                // Mark as purchased
+                purchasedItems.push(itemId);
+                localStorage.setItem('purchasedItems', JSON.stringify(purchasedItems));
+                
+                // Update UI
+                const shopItem = btn.closest('.shop-item');
+                shopItem.classList.add('owned');
+                const priceDiv = shopItem.querySelector('.shop-item-price');
+                if (priceDiv) {
+                    priceDiv.innerHTML = '<span class="owned-badge">Owned</span>';
+                }
+                btn.textContent = 'Owned';
+                btn.disabled = true;
+                
+                // Show success message
+                showNotification(`✨ ${itemName} purchased successfully!`, 'success');
+                
+                // Apply item effects based on type
+                applyItemEffect(itemType, itemId);
+            }
+        });
+    });
+}
+
+// Apply purchased item effects
+function applyItemEffect(type, itemId) {
+    switch(type) {
+        case 'booster':
+            // Store active boosters
+            let activeBoosters = JSON.parse(localStorage.getItem('activeBoosters') || '[]');
+            activeBoosters.push({
+                id: itemId,
+                activatedAt: Date.now()
+            });
+            localStorage.setItem('activeBoosters', JSON.stringify(activeBoosters));
+            showNotification('🚀 Booster activated!', 'success');
+            break;
+        case 'title':
+            // Set as active title
+            localStorage.setItem('activeTitle', itemId);
+            showNotification('👑 Title equipped!', 'success');
+            break;
+        case 'frame':
+            // Set as active frame
+            localStorage.setItem('activeFrame', itemId);
+            showNotification('🖼️ Frame equipped!', 'success');
+            break;
+        case 'special':
+            showNotification('✨ Special item unlocked!', 'success');
+            break;
+        case 'theme':
+            showNotification('🎨 Theme unlocked! Visit Rewards to apply it.', 'success');
+            break;
     }
 }

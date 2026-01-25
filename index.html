@@ -34,6 +34,10 @@
                 <span class="tab-icon">🎁</span>
                 <span>Rewards</span>
             </button>
+            <button class="nav-tab" data-tab="shop">
+                <span class="tab-icon">🛒</span>
+                <span>Shop</span>
+            </button>
             <button class="nav-tab" data-tab="profile">
                 <span class="tab-icon">👤</span>
                 <span>Profile</span>
@@ -356,6 +360,368 @@
                                 <div class="profile-badge earned">📅</div>
                                 <div class="profile-badge locked">🌟</div>
                                 <div class="profile-badge locked">👑</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shop Tab -->
+            <section id="shop-tab" class="tab-content">
+                <div class="shop-section">
+                    <h2>🛒 Coin Shop</h2>
+                    <p class="section-description">Spend your coins on exclusive items and power-ups!</p>
+                    
+                    <div class="shop-balance">
+                        <span class="balance-label">Your Balance:</span>
+                        <span class="balance-amount">💰 <span id="shop-currency">1250</span> coins</span>
+                    </div>
+
+                    <!-- Shop Categories -->
+                    <div class="shop-categories">
+                        <button class="shop-category-btn active" data-category="all">All Items</button>
+                        <button class="shop-category-btn" data-category="themes">Themes</button>
+                        <button class="shop-category-btn" data-category="frames">Profile Frames</button>
+                        <button class="shop-category-btn" data-category="titles">Titles</button>
+                        <button class="shop-category-btn" data-category="boosters">Boosters</button>
+                        <button class="shop-category-btn" data-category="special">Special</button>
+                    </div>
+
+                    <!-- Themes Section -->
+                    <div class="shop-category-section" data-category="themes">
+                        <h3>🎨 App Themes</h3>
+                        <div class="shop-grid">
+                            <div class="shop-item owned">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    <span>Purple Dream</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Purple Dream</div>
+                                    <div class="shop-item-status owned-badge">Owned</div>
+                                </div>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                    <span>Sunset Glow</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Sunset Glow</div>
+                                    <div class="shop-item-price">💰 200</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="sunset-theme" data-price="200" data-type="theme">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                                    <span>Ocean Blue</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Ocean Blue</div>
+                                    <div class="shop-item-price">💰 300</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="ocean-theme" data-price="300" data-type="theme">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                                    <span>Golden Hour</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Golden Hour</div>
+                                    <div class="shop-item-price">💰 500</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="golden-theme" data-price="500" data-type="theme">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #2E7D32 0%, #66BB6A 100%);">
+                                    <span>Forest Green</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Forest Green</div>
+                                    <div class="shop-item-price">💰 400</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="forest-theme" data-price="400" data-type="theme">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #00E5FF 0%, #FF1744 100%);">
+                                    <span>Neon Nights</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Neon Nights</div>
+                                    <div class="shop-item-price">💰 600</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="neon-theme" data-price="600" data-type="theme">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);">
+                                    <span>Coral Reef</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Coral Reef</div>
+                                    <div class="shop-item-price">💰 350</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="coral-theme" data-price="350" data-type="theme">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #FFD93D 0%, #FF6B6B 100%);">
+                                    <span>Fiery Sunset</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Fiery Sunset</div>
+                                    <div class="shop-item-price">💰 450</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="fiery-theme" data-price="450" data-type="theme">Buy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Frames Section -->
+                    <div class="shop-category-section" data-category="frames">
+                        <h3>🖼️ Profile Frames</h3>
+                        <p class="category-description">Add a special border to your profile avatar!</p>
+                        <div class="shop-grid">
+                            <div class="shop-item">
+                                <div class="shop-frame-preview">
+                                    <div class="frame-sample gold-frame">
+                                        <span class="frame-avatar">😊</span>
+                                    </div>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Gold Champion</div>
+                                    <div class="shop-item-price">💰 150</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="gold-frame" data-price="150" data-type="frame">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-frame-preview">
+                                    <div class="frame-sample silver-frame">
+                                        <span class="frame-avatar">😊</span>
+                                    </div>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Silver Elite</div>
+                                    <div class="shop-item-price">💰 100</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="silver-frame" data-price="100" data-type="frame">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-frame-preview">
+                                    <div class="frame-sample rainbow-frame">
+                                        <span class="frame-avatar">😊</span>
+                                    </div>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Rainbow Power</div>
+                                    <div class="shop-item-price">💰 250</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="rainbow-frame" data-price="250" data-type="frame">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-frame-preview">
+                                    <div class="frame-sample fire-frame">
+                                        <span class="frame-avatar">😊</span>
+                                    </div>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Fire Blaze</div>
+                                    <div class="shop-item-price">💰 300</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="fire-frame" data-price="300" data-type="frame">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-frame-preview">
+                                    <div class="frame-sample diamond-frame">
+                                        <span class="frame-avatar">😊</span>
+                                    </div>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Diamond Legend</div>
+                                    <div class="shop-item-price">💰 500</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="diamond-frame" data-price="500" data-type="frame">Buy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Titles Section -->
+                    <div class="shop-category-section" data-category="titles">
+                        <h3>👑 Profile Titles</h3>
+                        <p class="category-description">Show off your status with exclusive titles!</p>
+                        <div class="shop-grid titles-grid">
+                            <div class="shop-item title-item">
+                                <div class="title-preview">
+                                    <span class="title-text" style="color: #FFD700;">⭐ Fitness Legend</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Fitness Legend</div>
+                                    <div class="shop-item-price">💰 200</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="legend-title" data-price="200" data-type="title">Buy</button>
+                            </div>
+                            <div class="shop-item title-item">
+                                <div class="title-preview">
+                                    <span class="title-text" style="color: #FF6B6B;">🔥 Workout Warrior</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Workout Warrior</div>
+                                    <div class="shop-item-price">💰 150</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="warrior-title" data-price="150" data-type="title">Buy</button>
+                            </div>
+                            <div class="shop-item title-item">
+                                <div class="title-preview">
+                                    <span class="title-text" style="color: #10b981;">💪 Strength Master</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Strength Master</div>
+                                    <div class="shop-item-price">💰 180</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="strength-title" data-price="180" data-type="title">Buy</button>
+                            </div>
+                            <div class="shop-item title-item">
+                                <div class="title-preview">
+                                    <span class="title-text" style="color: #8B5CF6;">⚡ Speed Demon</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Speed Demon</div>
+                                    <div class="shop-item-price">💰 160</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="speed-title" data-price="160" data-type="title">Buy</button>
+                            </div>
+                            <div class="shop-item title-item">
+                                <div class="title-preview">
+                                    <span class="title-text" style="color: #06B6D4;">🏃 Marathon Runner</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Marathon Runner</div>
+                                    <div class="shop-item-price">💰 220</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="marathon-title" data-price="220" data-type="title">Buy</button>
+                            </div>
+                            <div class="shop-item title-item">
+                                <div class="title-preview">
+                                    <span class="title-text" style="color: #F59E0B;">👑 Fitness King/Queen</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Fitness Royalty</div>
+                                    <div class="shop-item-price">💰 400</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="royalty-title" data-price="400" data-type="title">Buy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Boosters Section -->
+                    <div class="shop-category-section" data-category="boosters">
+                        <h3>⚡ Workout Boosters</h3>
+                        <p class="category-description">Temporary power-ups to accelerate your progress!</p>
+                        <div class="shop-grid boosters-grid">
+                            <div class="shop-item booster-item">
+                                <div class="booster-icon">💰×2</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Double Coins</div>
+                                    <div class="shop-item-desc">Earn 2x coins for 5 workouts</div>
+                                    <div class="shop-item-price">💰 100</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="double-coins" data-price="100" data-type="booster">Buy</button>
+                            </div>
+                            <div class="shop-item booster-item">
+                                <div class="booster-icon">⚡×3</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Triple XP</div>
+                                    <div class="shop-item-desc">Earn 3x XP for 3 workouts</div>
+                                    <div class="shop-item-price">💰 150</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="triple-xp" data-price="150" data-type="booster">Buy</button>
+                            </div>
+                            <div class="shop-item booster-item">
+                                <div class="booster-icon">🎯</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Goal Crusher</div>
+                                    <div class="shop-item-desc">All milestones give +50% coins for 24hrs</div>
+                                    <div class="shop-item-price">💰 200</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="goal-crusher" data-price="200" data-type="booster">Buy</button>
+                            </div>
+                            <div class="shop-item booster-item">
+                                <div class="booster-icon">🔥</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Streak Saver</div>
+                                    <div class="shop-item-desc">Protects your streak if you miss a day</div>
+                                    <div class="shop-item-price">💰 250</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="streak-saver" data-price="250" data-type="booster">Buy</button>
+                            </div>
+                            <div class="shop-item booster-item">
+                                <div class="booster-icon">🏆</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Achievement Hunter</div>
+                                    <div class="shop-item-desc">Progress 2x faster on achievements for 7 days</div>
+                                    <div class="shop-item-price">💰 300</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="achievement-hunter" data-price="300" data-type="booster">Buy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Special Items Section -->
+                    <div class="shop-category-section" data-category="special">
+                        <h3>✨ Special Items</h3>
+                        <p class="category-description">Exclusive and limited items!</p>
+                        <div class="shop-grid special-grid">
+                            <div class="shop-item special-item">
+                                <div class="special-icon">💬</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Motivational Quotes Pack</div>
+                                    <div class="shop-item-desc">50 inspiring quotes to keep you motivated</div>
+                                    <div class="shop-item-price">💰 120</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="quotes-pack" data-price="120" data-type="special">Buy</button>
+                            </div>
+                            <div class="shop-item special-item">
+                                <div class="special-icon">📱</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Custom App Icon Pack</div>
+                                    <div class="shop-item-desc">5 unique app icons to choose from</div>
+                                    <div class="shop-item-price">💰 180</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="icon-pack" data-price="180" data-type="special">Buy</button>
+                            </div>
+                            <div class="shop-item special-item">
+                                <div class="special-icon">🎵</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Workout Soundtrack</div>
+                                    <div class="shop-item-desc">Premium workout music playlist</div>
+                                    <div class="shop-item-price">💰 250</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="soundtrack" data-price="250" data-type="special">Buy</button>
+                            </div>
+                            <div class="shop-item special-item">
+                                <div class="special-icon">📊</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Advanced Stats Dashboard</div>
+                                    <div class="shop-item-desc">Detailed analytics and progress charts</div>
+                                    <div class="shop-item-price">💰 350</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="stats-dashboard" data-price="350" data-type="special">Buy</button>
+                            </div>
+                            <div class="shop-item special-item rare">
+                                <div class="rare-badge">RARE</div>
+                                <div class="special-icon">💎</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">VIP Membership (30 days)</div>
+                                    <div class="shop-item-desc">Exclusive benefits: 2x coins, special badge, priority support</div>
+                                    <div class="shop-item-price">💰 800</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="vip-membership" data-price="800" data-type="special">Buy</button>
+                            </div>
+                            <div class="shop-item special-item legendary">
+                                <div class="legendary-badge">LEGENDARY</div>
+                                <div class="special-icon">👑</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Lifetime Premium</div>
+                                    <div class="shop-item-desc">All features unlocked forever + exclusive legendary badge</div>
+                                    <div class="shop-item-price">💰 2000</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="lifetime-premium" data-price="2000" data-type="special">Buy</button>
                             </div>
                         </div>
                     </div>
