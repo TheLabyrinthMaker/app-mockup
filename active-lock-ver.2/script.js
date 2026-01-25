@@ -29,7 +29,9 @@ function initializeTheme() {
     }
     
     const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', toggleTheme);
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
 }
 
 function toggleTheme() {
@@ -248,21 +250,26 @@ function timerComplete() {
     const soundAlert = document.getElementById('sound-alert');
     if (soundAlert && soundAlert.checked) {
         // Play a simple beep sound (browser default)
-        const audio = new AudioContext();
-        const oscillator = audio.createOscillator();
-        const gainNode = audio.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audio.destination);
-        
-        oscillator.frequency.value = 800;
-        oscillator.type = 'sine';
-        
-        gainNode.gain.setValueAtTime(0.3, audio.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.5);
-        
-        oscillator.start(audio.currentTime);
-        oscillator.stop(audio.currentTime + 0.5);
+        try {
+            const audio = new AudioContext();
+            const oscillator = audio.createOscillator();
+            const gainNode = audio.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audio.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audio.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.5);
+            
+            oscillator.start(audio.currentTime);
+            oscillator.stop(audio.currentTime + 0.5);
+        } catch (error) {
+            // Audio context may fail if no user gesture has occurred yet
+            console.warn('Unable to play sound alert:', error);
+        }
     }
     
     // Show completion message
@@ -422,7 +429,7 @@ function loadUserPreferences() {
                 }
             }
         } catch (error) {
-            console.error('Error loading preferences:', error);
+            console.error('Error loading user preferences from localStorage:', error.message);
         }
     }
 }
