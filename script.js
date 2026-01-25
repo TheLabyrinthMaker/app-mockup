@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeThemeToggle();
     initializeRestTimer();
     initializeRoutesFilter();
+    initializeProfileCustomization();
 });
 
 // Tab Navigation
@@ -729,4 +730,98 @@ function filterRoutes(filter) {
             }
         }
     });
+}
+
+// Profile Customization
+function initializeProfileCustomization() {
+    const avatarPicker = document.querySelectorAll('.avatar-picker-btn');
+    const activityPicker = document.querySelectorAll('.activity-picker-btn');
+    const profileAvatarDisplay = document.getElementById('profile-avatar-display');
+    const usernameInput = document.getElementById('profile-username-input');
+    const saveUsernameBtn = document.getElementById('save-username-btn');
+    const profileUsername = document.getElementById('profile-username');
+    const fitnessGoalSelect = document.getElementById('fitness-goal-select');
+    
+    // Load saved profile data
+    const savedAvatar = localStorage.getItem('profileAvatar') || '😊';
+    const savedUsername = localStorage.getItem('profileUsername') || 'Fitness Enthusiast';
+    const savedActivity = localStorage.getItem('favoriteActivity') || 'running';
+    const savedGoal = localStorage.getItem('fitnessGoal') || 'general';
+    
+    // Set initial values
+    if (profileAvatarDisplay) {
+        profileAvatarDisplay.textContent = savedAvatar;
+    }
+    if (usernameInput) {
+        usernameInput.value = savedUsername;
+    }
+    if (profileUsername) {
+        profileUsername.textContent = savedUsername;
+    }
+    if (fitnessGoalSelect) {
+        fitnessGoalSelect.value = savedGoal;
+    }
+    
+    // Set active states
+    avatarPicker.forEach(btn => {
+        if (btn.dataset.avatar === savedAvatar) {
+            btn.classList.add('active');
+        }
+    });
+    
+    activityPicker.forEach(btn => {
+        if (btn.dataset.activity === savedActivity) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Avatar picker
+    avatarPicker.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const avatar = btn.dataset.avatar;
+            
+            avatarPicker.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            if (profileAvatarDisplay) {
+                profileAvatarDisplay.textContent = avatar;
+            }
+            
+            localStorage.setItem('profileAvatar', avatar);
+            showNotification('Avatar updated!');
+        });
+    });
+    
+    // Activity picker
+    activityPicker.forEach(btn => {
+        btn.addEventListener('click', () => {
+            activityPicker.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            localStorage.setItem('favoriteActivity', btn.dataset.activity);
+            showNotification('Favorite activity updated!');
+        });
+    });
+    
+    // Save username
+    if (saveUsernameBtn) {
+        saveUsernameBtn.addEventListener('click', () => {
+            const newUsername = usernameInput.value.trim();
+            if (newUsername && newUsername.length > 0) {
+                if (profileUsername) {
+                    profileUsername.textContent = newUsername;
+                }
+                localStorage.setItem('profileUsername', newUsername);
+                showNotification('Username saved!');
+            }
+        });
+    }
+    
+    // Fitness goal select
+    if (fitnessGoalSelect) {
+        fitnessGoalSelect.addEventListener('change', () => {
+            localStorage.setItem('fitnessGoal', fitnessGoalSelect.value);
+            showNotification('Fitness goal updated!');
+        });
+    }
 }

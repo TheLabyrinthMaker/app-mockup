@@ -29,6 +29,10 @@
                 <span class="tab-icon">🎁</span>
                 <span>Rewards</span>
             </button>
+            <button class="nav-tab" data-tab="profile">
+                <span class="tab-icon">👤</span>
+                <span>Profile</span>
+            </button>
             <button class="nav-tab" data-tab="routes">
                 <span class="tab-icon">🗺️</span>
                 <span>Routes</span>
@@ -347,6 +351,142 @@
                                 <div class="profile-badge earned">📅</div>
                                 <div class="profile-badge locked">🌟</div>
                                 <div class="profile-badge locked">👑</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Tab -->
+            <section id="profile-tab" class="tab-content">
+                <div class="profile-section">
+                    <h2>👤 Your Profile</h2>
+                    
+                    <div class="profile-header-card">
+                        <div class="profile-avatar-large">
+                            <span class="avatar-emoji-large" id="profile-avatar-display">😊</span>
+                        </div>
+                        <div class="profile-info-main">
+                            <h3 id="profile-username">Fitness Enthusiast</h3>
+                            <p>Member since January 2026</p>
+                            <div class="profile-stats-mini">
+                                <span>🏆 6 Achievements</span>
+                                <span>💰 1,250 Coins</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Badges -->
+                    <div class="profile-badges-section">
+                        <h3>🎖️ Your Badges</h3>
+                        <p class="section-description">Show off your achievements with profile badges!</p>
+                        <div class="profile-badges-grid">
+                            <div class="profile-badge earned">
+                                <span class="badge-icon-large">🔥</span>
+                                <span class="badge-name">First Steps</span>
+                            </div>
+                            <div class="profile-badge earned">
+                                <span class="badge-icon-large">💯</span>
+                                <span class="badge-name">Century Club</span>
+                            </div>
+                            <div class="profile-badge earned">
+                                <span class="badge-icon-large">⚡</span>
+                                <span class="badge-name">Speed Demon</span>
+                            </div>
+                            <div class="profile-badge earned">
+                                <span class="badge-icon-large">💪</span>
+                                <span class="badge-name">Strong Start</span>
+                            </div>
+                            <div class="profile-badge earned">
+                                <span class="badge-icon-large">🌅</span>
+                                <span class="badge-name">Early Bird</span>
+                            </div>
+                            <div class="profile-badge earned">
+                                <span class="badge-icon-large">📅</span>
+                                <span class="badge-name">Consistency</span>
+                            </div>
+                            <div class="profile-badge locked">
+                                <span class="badge-icon-large">🌟</span>
+                                <span class="badge-name">Locked</span>
+                            </div>
+                            <div class="profile-badge locked">
+                                <span class="badge-icon-large">👑</span>
+                                <span class="badge-name">Locked</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Customization -->
+                    <div class="profile-customization-section">
+                        <h3>🎨 Customize Your Profile</h3>
+                        <p class="section-description">Personalize your ActiveLock experience!</p>
+                        
+                        <div class="customization-group">
+                            <h4>Profile Avatar</h4>
+                            <div class="avatar-picker">
+                                <button class="avatar-picker-btn active" data-avatar="😊">😊</button>
+                                <button class="avatar-picker-btn" data-avatar="🏃">🏃</button>
+                                <button class="avatar-picker-btn" data-avatar="💪">💪</button>
+                                <button class="avatar-picker-btn" data-avatar="🚴">🚴</button>
+                                <button class="avatar-picker-btn" data-avatar="🏊">🏊</button>
+                                <button class="avatar-picker-btn" data-avatar="⚡">⚡</button>
+                                <button class="avatar-picker-btn" data-avatar="🔥">🔥</button>
+                                <button class="avatar-picker-btn" data-avatar="⭐">⭐</button>
+                            </div>
+                        </div>
+
+                        <div class="customization-group">
+                            <h4>Username</h4>
+                            <input type="text" id="profile-username-input" class="profile-input" value="Fitness Enthusiast" maxlength="30">
+                            <button id="save-username-btn" class="btn btn-primary">Save Username</button>
+                        </div>
+
+                        <div class="customization-group">
+                            <h4>Fitness Goal</h4>
+                            <select id="fitness-goal-select" class="profile-select">
+                                <option value="general">General Fitness</option>
+                                <option value="weight-loss">Weight Loss</option>
+                                <option value="muscle-gain">Muscle Gain</option>
+                                <option value="endurance">Build Endurance</option>
+                                <option value="flexibility">Improve Flexibility</option>
+                            </select>
+                        </div>
+
+                        <div class="customization-group">
+                            <h4>Favorite Activity</h4>
+                            <div class="activity-picker">
+                                <button class="activity-picker-btn active" data-activity="running">🏃 Running</button>
+                                <button class="activity-picker-btn" data-activity="walking">🚶 Walking</button>
+                                <button class="activity-picker-btn" data-activity="cycling">🚴 Cycling</button>
+                                <button class="activity-picker-btn" data-activity="gym">💪 Gym</button>
+                                <button class="activity-picker-btn" data-activity="yoga">🧘 Yoga</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Stats -->
+                    <div class="profile-stats-section">
+                        <h3>📊 Your Stats</h3>
+                        <div class="stats-grid-profile">
+                            <div class="stat-card-profile">
+                                <div class="stat-icon-profile">🔥</div>
+                                <div class="stat-value-profile">1,234</div>
+                                <div class="stat-label-profile">Total Calories</div>
+                            </div>
+                            <div class="stat-card-profile">
+                                <div class="stat-icon-profile">⏱️</div>
+                                <div class="stat-value-profile">24</div>
+                                <div class="stat-label-profile">Workouts</div>
+                            </div>
+                            <div class="stat-card-profile">
+                                <div class="stat-icon-profile">📅</div>
+                                <div class="stat-value-profile">7</div>
+                                <div class="stat-label-profile">Day Streak</div>
+                            </div>
+                            <div class="stat-card-profile">
+                                <div class="stat-icon-profile">🎯</div>
+                                <div class="stat-value-profile">85%</div>
+                                <div class="stat-label-profile">Goal Rate</div>
                             </div>
                         </div>
                     </div>
