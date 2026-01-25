@@ -8,14 +8,6 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Theme Toggle -->
-        <div class="theme-toggle-wrapper">
-            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
-                <span class="theme-icon sun-icon">☀️</span>
-                <span class="theme-icon moon-icon">🌙</span>
-            </button>
-        </div>
-
         <!-- Header -->
         <header class="app-header">
             <div class="header-content">
@@ -623,6 +615,19 @@
             <section id="settings-tab" class="tab-content">
                 <div class="settings-section">
                     <h2>⚙️ Settings</h2>
+                    
+                    <div class="settings-group">
+                        <h3>🎨 Appearance</h3>
+                        <p class="settings-description">Customize the app's visual theme</p>
+                        
+                        <div class="setting-item">
+                            <label class="toggle-label">
+                                <span>Dark Mode</span>
+                                <input type="checkbox" id="theme-toggle">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
                     
                     <div class="settings-group">
                         <h3>📱 Notification Blocking</h3>

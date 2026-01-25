@@ -532,13 +532,26 @@ function initializeThemeToggle() {
     // Set initial theme (default is dark based on CSS)
     if (savedTheme === 'light') {
         document.body.classList.add('light-mode');
+        if (themeToggle) {
+            themeToggle.checked = false; // Unchecked = light mode
+        }
+    } else {
+        if (themeToggle) {
+            themeToggle.checked = true; // Checked = dark mode
+        }
     }
     
     if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            const currentTheme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
-            localStorage.setItem('theme', currentTheme);
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                // Dark mode
+                document.body.classList.remove('light-mode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                // Light mode
+                document.body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            }
         });
     }
 }

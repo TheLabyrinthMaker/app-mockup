@@ -24,18 +24,18 @@
 
 /* Light Mode */
 body.light-mode {
-    --primary-color: #4f46e5;
-    --primary-dark: #4338ca;
-    --secondary-color: #7c3aed;
-    --success-color: #059669;
-    --warning-color: #d97706;
-    --danger-color: #dc2626;
-    --background: #f1f5f9;
+    --primary-color: #10b981;
+    --primary-dark: #059669;
+    --secondary-color: #06b6d4;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --background: #f0fdf4;
     --surface: #ffffff;
-    --surface-light: #e2e8f0;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --border-color: #cbd5e1;
+    --surface-light: #dcfce7;
+    --text-primary: #064e3b;
+    --text-secondary: #047857;
+    --border-color: #86efac;
 }
 
 body {
@@ -1075,46 +1075,6 @@ h3 {
     to { transform: rotate(360deg); }
 }
 
-/* Theme Toggle */
-.theme-toggle-wrapper {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 1000;
-}
-
-.theme-toggle-btn {
-    background: var(--surface);
-    border: 2px solid var(--border-color);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.theme-toggle-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-.theme-icon {
-    transition: opacity 0.3s ease;
-}
-
-body:not(.light-mode) .sun-icon {
-    display: none;
-}
-
-body.light-mode .moon-icon {
-    display: none;
-}
-
 /* Rest Timer Section */
 .rest-timer-section {
     background: var(--surface);
@@ -1443,17 +1403,6 @@ body.light-mode .moon-icon {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .theme-toggle-wrapper {
-        top: 0.5rem;
-        right: 0.5rem;
-    }
-    
-    .theme-toggle-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 1.25rem;
-    }
-    
     .rest-timer-circle {
         width: 150px;
         height: 150px;
