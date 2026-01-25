@@ -31,6 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeLeaderboard();
     updateCurrencyDisplay();
     initializeGoalsProgress();
+    
+    // Initialize new features
+    initializeThemeToggle();
+    initializeRestTimer();
+    initializeRoutesFilter();
 });
 
 // Tab Navigation
@@ -524,6 +529,7 @@ function initializeThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
     const savedTheme = localStorage.getItem('theme') || 'dark';
     
+    // Set initial theme (default is dark based on CSS)
     if (savedTheme === 'light') {
         document.body.classList.add('light-mode');
     }
@@ -642,6 +648,11 @@ function restTimerComplete() {
             
             oscillator.start(audio.currentTime);
             oscillator.stop(audio.currentTime + 0.5);
+            
+            // Clean up AudioContext after use
+            setTimeout(() => {
+                audio.close();
+            }, 600);
         } catch (error) {
             console.warn('Unable to play sound alert:', error);
         }
@@ -706,19 +717,3 @@ function filterRoutes(filter) {
         }
     });
 }
-
-// Update initialization
-document.addEventListener('DOMContentLoaded', () => {
-    initializeTabs();
-    initializeLockSystem();
-    initializeSettings();
-    initializeRewards();
-    initializeLeaderboard();
-    updateCurrencyDisplay();
-    initializeGoalsProgress();
-    
-    // Initialize new features
-    initializeThemeToggle();
-    initializeRestTimer();
-    initializeRoutesFilter();
-});
