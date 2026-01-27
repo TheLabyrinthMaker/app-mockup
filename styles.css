@@ -2635,21 +2635,34 @@ h3 {
     }
 }
 
-/* Performance optimizations */
-* {
+/* Performance optimizations - Apply selectively to animated elements */
+.timer-display,
+.coin-icon,
+.profile-badge-item,
+.shop-item,
+.achievement-card,
+.route-card,
+.nav-tab,
+button,
+.btn,
+.modal-content {
     /* Hardware acceleration for animations */
     -webkit-transform: translateZ(0);
     -moz-transform: translateZ(0);
     -ms-transform: translateZ(0);
     transform: translateZ(0);
+    will-change: transform;
 }
 
 /* Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0s !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        transition-duration: 0s !important;
+        scroll-behavior: auto !important;
     }
 }
 
