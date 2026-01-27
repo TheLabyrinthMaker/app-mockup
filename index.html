@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>ActiveLock - Gamified Fitness App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">🔒 ActiveLock</h1>
+                <div class="header-right">
+                    <div class="header-profile-avatar" id="header-avatar">
+                        <span class="header-avatar-emoji">😊</span>
+                    </div>
+                    <div class="currency-display">
+                        <span class="coin-icon">💰</span>
+                        <span id="currency-amount">1250</span> coins
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="lock">
+                <span class="tab-icon">🔒</span>
+                <span>Lock</span>
+            </button>
+            <button class="nav-tab" data-tab="rewards">
+                <span class="tab-icon">🎁</span>
+                <span>Rewards</span>
+            </button>
+            <button class="nav-tab" data-tab="shop">
+                <span class="tab-icon">🛒</span>
+                <span>Shop</span>
+            </button>
+            <button class="nav-tab" data-tab="profile">
+                <span class="tab-icon">👤</span>
+                <span>Profile</span>
+            </button>
+            <button class="nav-tab" data-tab="routes">
+                <span class="tab-icon">🗺️</span>
+                <span>Routes</span>
+            </button>
+            <button class="nav-tab" data-tab="leaderboard">
+                <span class="tab-icon">🏆</span>
+                <span>Leaderboard</span>
+            </button>
+            <button class="nav-tab" data-tab="settings">
+                <span class="tab-icon">⚙️</span>
+                <span>Settings</span>
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Lock Tab -->
+            <section id="lock-tab" class="tab-content active">
+                <div class="lock-section">
+                    <h2>Smart Phone Lock</h2>
+                    <p class="section-description">Lock your phone during exercise and earn rewards!</p>
+                    
+                    <div class="lock-status" id="lock-status">
+                        <div class="status-icon unlocked">🔓</div>
+                        <p class="status-text">Phone Unlocked</p>
+                    </div>
+
+                    <div class="timer-display" id="timer-display">
+                        <div class="timer">00:00:00</div>
+                        <p class="timer-label">Exercise Time</p>
+                    </div>
+
+                    <div class="goals-progress">
+                        <h3 class="goals-title">Session Goals</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                            <div class="progress-milestones">
+                                <div class="milestone" data-time="300" data-reward="25">
+                                    <div class="milestone-marker">
+                                        <span class="milestone-icon">🎯</span>
+                                    </div>
+                                    <div class="milestone-label">5 min<br>+25 coins</div>
+                                </div>
+                                <div class="milestone" data-time="600" data-reward="50">
+                                    <div class="milestone-marker">
+                                        <span class="milestone-icon">⭐</span>
+                                    </div>
+                                    <div class="milestone-label">10 min<br>+50 coins</div>
+                                </div>
+                                <div class="milestone" data-time="900" data-reward="75">
+                                    <div class="milestone-marker">
+                                        <span class="milestone-icon">🔥</span>
+                                    </div>
+                                    <div class="milestone-label">15 min<br>+75 coins</div>
+                                </div>
+                                <div class="milestone" data-time="1800" data-reward="150">
+                                    <div class="milestone-marker">
+                                        <span class="milestone-icon">💎</span>
+                                    </div>
+                                    <div class="milestone-label">30 min<br>+150 coins</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goals-info">
+                            <p>⏱️ Daily Goal: <span id="daily-progress">0</span> / 30 minutes</p>
+                        </div>
+                    </div>
+
+                    <div class="activity-selector">
+                        <label for="activity-type">Select Activity:</label>
+                        <select id="activity-type" class="activity-dropdown">
+                            <option value="running">🏃 Running</option>
+                            <option value="walking">🚶 Walking</option>
+                            <option value="cycling">🚴 Cycling</option>
+                            <option value="gym">💪 Gym Workout</option>
+                            <option value="yoga">🧘 Yoga</option>
+                        </select>
+                    </div>
+
+                    <div class="lock-controls">
+                        <button id="start-lock-btn" class="btn btn-primary">
+                            Start Exercise & Lock
+                        </button>
+                        <button id="stop-lock-btn" class="btn btn-secondary" style="display: none;">
+                            Complete Exercise
+                        </button>
+                    </div>
+
+                    <div class="reward-preview">
+                        <p>🎯 Complete this session to earn <strong>50 coins</strong></p>
+                    </div>
+
+                    <!-- Rest Timer Section -->
+                    <div class="rest-timer-section">
+                        <h3>⏱️ Rest Timer</h3>
+                        <p class="section-description">Customize your rest periods between sets</p>
+                        
+                        <div class="rest-timer-display">
+                            <div class="rest-timer-circle">
+                                <span id="rest-timer-value">01:00</span>
+                                <span class="rest-timer-label">Rest Time</span>
+                            </div>
+                        </div>
+
+                        <div class="rest-timer-controls">
+                            <button id="start-rest-timer" class="btn btn-small">Start</button>
+                            <button id="pause-rest-timer" class="btn btn-small">Pause</button>
+                            <button id="reset-rest-timer" class="btn btn-small">Reset</button>
+                        </div>
+
+                        <div class="rest-timer-presets">
+                            <span class="preset-label">Quick Presets:</span>
+                            <button class="preset-btn" data-seconds="30">30s</button>
+                            <button class="preset-btn" data-seconds="45">45s</button>
+                            <button class="preset-btn active" data-seconds="60">1min</button>
+                            <button class="preset-btn" data-seconds="90">1.5min</button>
+                            <button class="preset-btn" data-seconds="120">2min</button>
+                            <button class="preset-btn" data-seconds="180">3min</button>
+                        </div>
+
+                        <div class="rest-timer-custom">
+                            <label>Custom Timer:</label>
+                            <input type="number" id="custom-rest-minutes" min="0" max="10" value="1" class="custom-input">
+                            <span>min</span>
+                            <input type="number" id="custom-rest-seconds" min="0" max="59" value="0" class="custom-input">
+                            <span>sec</span>
+                            <button id="set-custom-rest-timer" class="btn btn-small">Set</button>
+                        </div>
+
+                        <div class="rest-timer-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="rest-auto-start" checked>
+                                <span>Auto-start timer after each set</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="rest-sound-alert" checked>
+                                <span>Sound alert when complete</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rewards Tab -->
+            <section id="rewards-tab" class="tab-content">
+                <div class="rewards-section">
+                    <h2>Rewards & Achievements</h2>
+                    
+                    <div class="stats-overview">
+                        <div class="stat-card">
+                            <div class="stat-value">1,250</div>
+                            <div class="stat-label">Total Coins</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">Workouts</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">8</div>
+                            <div class="stat-label">Achievements</div>
+                        </div>
+                    </div>
+
+                    <div class="achievements-container">
+                        <h3>🏆 Achievements</h3>
+                        <div class="achievements-grid">
+                            <div class="achievement-card unlocked">
+                                <div class="achievement-icon">🔥</div>
+                                <div class="achievement-name">First Steps</div>
+                                <div class="achievement-desc">Complete your first workout</div>
+                            </div>
+                            <div class="achievement-card unlocked">
+                                <div class="achievement-icon">💯</div>
+                                <div class="achievement-name">Century Club</div>
+                                <div class="achievement-desc">Earn 100 coins</div>
+                            </div>
+                            <div class="achievement-card unlocked">
+                                <div class="achievement-icon">⚡</div>
+                                <div class="achievement-name">Speed Demon</div>
+                                <div class="achievement-desc">Complete 5 running sessions</div>
+                            </div>
+                            <div class="achievement-card unlocked">
+                                <div class="achievement-icon">💪</div>
+                                <div class="achievement-name">Strong Start</div>
+                                <div class="achievement-desc">Complete 10 gym workouts</div>
+                            </div>
+                            <div class="achievement-card unlocked">
+                                <div class="achievement-icon">🌅</div>
+                                <div class="achievement-name">Early Bird</div>
+                                <div class="achievement-desc">Exercise before 8 AM 5 times</div>
+                            </div>
+                            <div class="achievement-card unlocked">
+                                <div class="achievement-icon">📅</div>
+                                <div class="achievement-name">Consistency King</div>
+                                <div class="achievement-desc">7-day workout streak</div>
+                            </div>
+                            <div class="achievement-card locked">
+                                <div class="achievement-icon">🌟</div>
+                                <div class="achievement-name">Golden Streak</div>
+                                <div class="achievement-desc">14-day workout streak</div>
+                            </div>
+                            <div class="achievement-card locked">
+                                <div class="achievement-icon">👑</div>
+                                <div class="achievement-name">Champion</div>
+                                <div class="achievement-desc">Reach #1 on leaderboard</div>
+                            </div>
+                            <div class="achievement-card locked">
+                                <div class="achievement-icon">💎</div>
+                                <div class="achievement-name">Diamond Status</div>
+                                <div class="achievement-desc">Earn 10,000 coins</div>
+                            </div>
+                            <div class="achievement-card locked">
+                                <div class="achievement-icon">🏃‍♂️</div>
+                                <div class="achievement-name">Marathon Ready</div>
+                                <div class="achievement-desc">Run total of 42km</div>
+                            </div>
+                            <div class="achievement-card locked">
+                                <div class="achievement-icon">🚴</div>
+                                <div class="achievement-name">Cycling Champion</div>
+                                <div class="achievement-desc">Cycle 100km in total</div>
+                            </div>
+                            <div class="achievement-card locked">
+                                <div class="achievement-icon">🌙</div>
+                                <div class="achievement-name">Night Owl</div>
+                                <div class="achievement-desc">Complete 10 evening workouts</div>
+                            </div>
+                            <div class="achievement-card locked">
+                                <div class="achievement-icon">🧘</div>
+                                <div class="achievement-name">Zen Master</div>
+                                <div class="achievement-desc">Complete 20 yoga sessions</div>
+                            </div>
+                            <div class="achievement-card locked">
+                                <div class="achievement-icon">🎯</div>
+                                <div class="achievement-name">Perfect Month</div>
+                                <div class="achievement-desc">Hit daily goal every day for a month</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="customizations-container">
+                        <h3>🎨 Customizations</h3>
+                        <p class="section-description">Unlock fun themes to personalize your app!</p>
+                        <div class="customization-grid">
+                            <div class="customization-card owned">
+                                <div class="customization-preview" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    <span>Purple Dream</span>
+                                </div>
+                                <div class="customization-info">
+                                    <div class="customization-name">Purple Dream Theme</div>
+                                    <div class="customization-status owned-badge">Owned</div>
+                                </div>
+                            </div>
+                            <div class="customization-card">
+                                <div class="customization-preview" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                    <span>Sunset Glow</span>
+                                </div>
+                                <div class="customization-info">
+                                    <div class="customization-name">Sunset Glow Theme</div>
+                                    <div class="customization-price">💰 200 coins</div>
+                                </div>
+                                <button class="btn btn-small unlock-btn" data-price="200">Unlock</button>
+                            </div>
+                            <div class="customization-card">
+                                <div class="customization-preview" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                                    <span>Ocean Blue</span>
+                                </div>
+                                <div class="customization-info">
+                                    <div class="customization-name">Ocean Blue Theme</div>
+                                    <div class="customization-price">💰 300 coins</div>
+                                </div>
+                                <button class="btn btn-small unlock-btn" data-price="300">Unlock</button>
+                            </div>
+                            <div class="customization-card">
+                                <div class="customization-preview" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                                    <span>Golden Hour</span>
+                                </div>
+                                <div class="customization-info">
+                                    <div class="customization-name">Golden Hour Theme</div>
+                                    <div class="customization-price">💰 500 coins</div>
+                                </div>
+                                <button class="btn btn-small unlock-btn" data-price="500">Unlock</button>
+                            </div>
+                            <div class="customization-card">
+                                <div class="customization-preview" style="background: linear-gradient(135deg, #2E7D32 0%, #66BB6A 100%);">
+                                    <span>Forest Green</span>
+                                </div>
+                                <div class="customization-info">
+                                    <div class="customization-name">Forest Green Theme</div>
+                                    <div class="customization-price">💰 400 coins</div>
+                                </div>
+                                <button class="btn btn-small unlock-btn" data-price="400">Unlock</button>
+                            </div>
+                            <div class="customization-card">
+                                <div class="customization-preview" style="background: linear-gradient(135deg, #00E5FF 0%, #FF1744 100%);">
+                                    <span>Neon Nights</span>
+                                </div>
+                                <div class="customization-info">
+                                    <div class="customization-name">Neon Nights Theme</div>
+                                    <div class="customization-price">💰 600 coins</div>
+                                </div>
+                                <button class="btn btn-small unlock-btn" data-price="600">Unlock</button>
+                            </div>
+                        </div>
+
+                        <div class="profile-badges-section">
+                            <h4>🎖️ Profile Badges</h4>
+                            <p>Show off your achievements!</p>
+                            <div class="badges-grid">
+                                <div class="profile-badge earned">🔥</div>
+                                <div class="profile-badge earned">💯</div>
+                                <div class="profile-badge earned">⚡</div>
+                                <div class="profile-badge earned">💪</div>
+                                <div class="profile-badge earned">🌅</div>
+                                <div class="profile-badge earned">📅</div>
+                                <div class="profile-badge locked">🌟</div>
+                                <div class="profile-badge locked">👑</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shop Tab -->
+            <section id="shop-tab" class="tab-content">
+                <div class="shop-section">
+                    <h2>🛒 Coin Shop</h2>
+                    <p class="section-description">Spend your coins on exclusive items and power-ups!</p>
+                    
+                    <div class="shop-balance">
+                        <span class="balance-label">Your Balance:</span>
+                        <span class="balance-amount">💰 <span id="shop-currency">1250</span> coins</span>
+                    </div>
+
+                    <!-- Shop Categories -->
+                    <div class="shop-categories">
+                        <button class="shop-category-btn active" data-category="all">All Items</button>
+                        <button class="shop-category-btn" data-category="themes">Themes</button>
+                        <button class="shop-category-btn" data-category="frames">Profile Frames</button>
+                        <button class="shop-category-btn" data-category="titles">Titles</button>
+                        <button class="shop-category-btn" data-category="boosters">Boosters</button>
+                        <button class="shop-category-btn" data-category="special">Special</button>
+                    </div>
+
+                    <!-- Themes Section -->
+                    <div class="shop-category-section" data-category="themes">
+                        <h3>🎨 App Themes</h3>
+                        <div class="shop-grid">
+                            <div class="shop-item owned">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    <span>Purple Dream</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Purple Dream</div>
+                                    <div class="shop-item-status owned-badge">Owned</div>
+                                </div>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                    <span>Sunset Glow</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Sunset Glow</div>
+                                    <div class="shop-item-price">💰 200</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="sunset-theme" data-price="200" data-type="theme">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                                    <span>Ocean Blue</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Ocean Blue</div>
+                                    <div class="shop-item-price">💰 300</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="ocean-theme" data-price="300" data-type="theme">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                                    <span>Golden Hour</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Golden Hour</div>
+                                    <div class="shop-item-price">💰 500</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="golden-theme" data-price="500" data-type="theme">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #2E7D32 0%, #66BB6A 100%);">
+                                    <span>Forest Green</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Forest Green</div>
+                                    <div class="shop-item-price">💰 400</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="forest-theme" data-price="400" data-type="theme">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #00E5FF 0%, #FF1744 100%);">
+                                    <span>Neon Nights</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Neon Nights</div>
+                                    <div class="shop-item-price">💰 600</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="neon-theme" data-price="600" data-type="theme">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);">
+                                    <span>Coral Reef</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Coral Reef</div>
+                                    <div class="shop-item-price">💰 350</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="coral-theme" data-price="350" data-type="theme">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-item-preview" style="background: linear-gradient(135deg, #FFD93D 0%, #FF6B6B 100%);">
+                                    <span>Fiery Sunset</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Fiery Sunset</div>
+                                    <div class="shop-item-price">💰 450</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="fiery-theme" data-price="450" data-type="theme">Buy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Frames Section -->
+                    <div class="shop-category-section" data-category="frames">
+                        <h3>🖼️ Profile Frames</h3>
+                        <p class="category-description">Add a special border to your profile avatar!</p>
+                        <div class="shop-grid">
+                            <div class="shop-item">
+                                <div class="shop-frame-preview">
+                                    <div class="frame-sample gold-frame">
+                                        <span class="frame-avatar">😊</span>
+                                    </div>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Gold Champion</div>
+                                    <div class="shop-item-price">💰 150</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="gold-frame" data-price="150" data-type="frame">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-frame-preview">
+                                    <div class="frame-sample silver-frame">
+                                        <span class="frame-avatar">😊</span>
+                                    </div>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Silver Elite</div>
+                                    <div class="shop-item-price">💰 100</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="silver-frame" data-price="100" data-type="frame">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-frame-preview">
+                                    <div class="frame-sample rainbow-frame">
+                                        <span class="frame-avatar">😊</span>
+                                    </div>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Rainbow Power</div>
+                                    <div class="shop-item-price">💰 250</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="rainbow-frame" data-price="250" data-type="frame">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-frame-preview">
+                                    <div class="frame-sample fire-frame">
+                                        <span class="frame-avatar">😊</span>
+                                    </div>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Fire Blaze</div>
+                                    <div class="shop-item-price">💰 300</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="fire-frame" data-price="300" data-type="frame">Buy</button>
+                            </div>
+                            <div class="shop-item">
+                                <div class="shop-frame-preview">
+                                    <div class="frame-sample diamond-frame">
+                                        <span class="frame-avatar">😊</span>
+                                    </div>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Diamond Legend</div>
+                                    <div class="shop-item-price">💰 500</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="diamond-frame" data-price="500" data-type="frame">Buy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Titles Section -->
+                    <div class="shop-category-section" data-category="titles">
+                        <h3>👑 Profile Titles</h3>
+                        <p class="category-description">Show off your status with exclusive titles!</p>
+                        <div class="shop-grid titles-grid">
+                            <div class="shop-item title-item">
+                                <div class="title-preview">
+                                    <span class="title-text" style="color: #FFD700;">⭐ Fitness Legend</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Fitness Legend</div>
+                                    <div class="shop-item-price">💰 200</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="legend-title" data-price="200" data-type="title">Buy</button>
+                            </div>
+                            <div class="shop-item title-item">
+                                <div class="title-preview">
+                                    <span class="title-text" style="color: #FF6B6B;">🔥 Workout Warrior</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Workout Warrior</div>
+                                    <div class="shop-item-price">💰 150</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="warrior-title" data-price="150" data-type="title">Buy</button>
+                            </div>
+                            <div class="shop-item title-item">
+                                <div class="title-preview">
+                                    <span class="title-text" style="color: #10b981;">💪 Strength Master</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Strength Master</div>
+                                    <div class="shop-item-price">💰 180</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="strength-title" data-price="180" data-type="title">Buy</button>
+                            </div>
+                            <div class="shop-item title-item">
+                                <div class="title-preview">
+                                    <span class="title-text" style="color: #8B5CF6;">⚡ Speed Demon</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Speed Demon</div>
+                                    <div class="shop-item-price">💰 160</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="speed-title" data-price="160" data-type="title">Buy</button>
+                            </div>
+                            <div class="shop-item title-item">
+                                <div class="title-preview">
+                                    <span class="title-text" style="color: #06B6D4;">🏃 Marathon Runner</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Marathon Runner</div>
+                                    <div class="shop-item-price">💰 220</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="marathon-title" data-price="220" data-type="title">Buy</button>
+                            </div>
+                            <div class="shop-item title-item">
+                                <div class="title-preview">
+                                    <span class="title-text" style="color: #F59E0B;">👑 Fitness King/Queen</span>
+                                </div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Fitness Royalty</div>
+                                    <div class="shop-item-price">💰 400</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="royalty-title" data-price="400" data-type="title">Buy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Boosters Section -->
+                    <div class="shop-category-section" data-category="boosters">
+                        <h3>⚡ Workout Boosters</h3>
+                        <p class="category-description">Temporary power-ups to accelerate your progress!</p>
+                        <div class="shop-grid boosters-grid">
+                            <div class="shop-item booster-item">
+                                <div class="booster-icon">💰×2</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Double Coins</div>
+                                    <div class="shop-item-desc">Earn 2x coins for 5 workouts</div>
+                                    <div class="shop-item-price">💰 100</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="double-coins" data-price="100" data-type="booster">Buy</button>
+                            </div>
+                            <div class="shop-item booster-item">
+                                <div class="booster-icon">⚡×3</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Triple XP</div>
+                                    <div class="shop-item-desc">Earn 3x XP for 3 workouts</div>
+                                    <div class="shop-item-price">💰 150</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="triple-xp" data-price="150" data-type="booster">Buy</button>
+                            </div>
+                            <div class="shop-item booster-item">
+                                <div class="booster-icon">🎯</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Goal Crusher</div>
+                                    <div class="shop-item-desc">All milestones give +50% coins for 24hrs</div>
+                                    <div class="shop-item-price">💰 200</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="goal-crusher" data-price="200" data-type="booster">Buy</button>
+                            </div>
+                            <div class="shop-item booster-item">
+                                <div class="booster-icon">🔥</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Streak Saver</div>
+                                    <div class="shop-item-desc">Protects your streak if you miss a day</div>
+                                    <div class="shop-item-price">💰 250</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="streak-saver" data-price="250" data-type="booster">Buy</button>
+                            </div>
+                            <div class="shop-item booster-item">
+                                <div class="booster-icon">🏆</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Achievement Hunter</div>
+                                    <div class="shop-item-desc">Progress 2x faster on achievements for 7 days</div>
+                                    <div class="shop-item-price">💰 300</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="achievement-hunter" data-price="300" data-type="booster">Buy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Special Items Section -->
+                    <div class="shop-category-section" data-category="special">
+                        <h3>✨ Special Items</h3>
+                        <p class="category-description">Exclusive and limited items!</p>
+                        <div class="shop-grid special-grid">
+                            <div class="shop-item special-item">
+                                <div class="special-icon">💬</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Motivational Quotes Pack</div>
+                                    <div class="shop-item-desc">50 inspiring quotes to keep you motivated</div>
+                                    <div class="shop-item-price">💰 120</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="quotes-pack" data-price="120" data-type="special">Buy</button>
+                            </div>
+                            <div class="shop-item special-item">
+                                <div class="special-icon">📱</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Custom App Icon Pack</div>
+                                    <div class="shop-item-desc">5 unique app icons to choose from</div>
+                                    <div class="shop-item-price">💰 180</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="icon-pack" data-price="180" data-type="special">Buy</button>
+                            </div>
+                            <div class="shop-item special-item">
+                                <div class="special-icon">🎵</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Workout Soundtrack</div>
+                                    <div class="shop-item-desc">Premium workout music playlist</div>
+                                    <div class="shop-item-price">💰 250</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="soundtrack" data-price="250" data-type="special">Buy</button>
+                            </div>
+                            <div class="shop-item special-item">
+                                <div class="special-icon">📊</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Advanced Stats Dashboard</div>
+                                    <div class="shop-item-desc">Detailed analytics and progress charts</div>
+                                    <div class="shop-item-price">💰 350</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="stats-dashboard" data-price="350" data-type="special">Buy</button>
+                            </div>
+                            <div class="shop-item special-item rare">
+                                <div class="rare-badge">RARE</div>
+                                <div class="special-icon">💎</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">VIP Membership (30 days)</div>
+                                    <div class="shop-item-desc">Exclusive benefits: 2x coins, special badge, priority support</div>
+                                    <div class="shop-item-price">💰 800</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="vip-membership" data-price="800" data-type="special">Buy</button>
+                            </div>
+                            <div class="shop-item special-item legendary">
+                                <div class="legendary-badge">LEGENDARY</div>
+                                <div class="special-icon">👑</div>
+                                <div class="shop-item-info">
+                                    <div class="shop-item-name">Lifetime Premium</div>
+                                    <div class="shop-item-desc">All features unlocked forever + exclusive legendary badge</div>
+                                    <div class="shop-item-price">💰 2000</div>
+                                </div>
+                                <button class="btn btn-small shop-buy-btn" data-item="lifetime-premium" data-price="2000" data-type="special">Buy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Tab -->
+            <section id="profile-tab" class="tab-content">
+                <div class="profile-section">
+                    <h2>👤 Your Profile</h2>
+                    
+                    <div class="profile-header-card">
+                        <div class="profile-avatar-large">
+                            <span class="avatar-emoji-large" id="profile-avatar-display">😊</span>
+                        </div>
+                        <div class="profile-info-main">
+                            <h3 id="profile-username">Fitness Enthusiast</h3>
+                            <p>Member since January 2026</p>
+                            <div class="profile-stats-mini">
+                                <span>🏆 6 Achievements</span>
+                                <span>💰 1,250 Coins</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Badges -->
+                    <div class="profile-badges-section">
+                        <h3>🎖️ Your Badges</h3>
+                        <p class="section-description">Show off your achievements with profile badges!</p>
+                        <div class="profile-badges-grid">
+                            <div class="profile-badge earned">
+                                <span class="badge-icon-large">🔥</span>
+                                <span class="badge-name">First Steps</span>
+                            </div>
+                            <div class="profile-badge earned">
+                                <span class="badge-icon-large">💯</span>
+                                <span class="badge-name">Century Club</span>
+                            </div>
+                            <div class="profile-badge earned">
+                                <span class="badge-icon-large">⚡</span>
+                                <span class="badge-name">Speed Demon</span>
+                            </div>
+                            <div class="profile-badge earned">
+                                <span class="badge-icon-large">💪</span>
+                                <span class="badge-name">Strong Start</span>
+                            </div>
+                            <div class="profile-badge earned">
+                                <span class="badge-icon-large">🌅</span>
+                                <span class="badge-name">Early Bird</span>
+                            </div>
+                            <div class="profile-badge earned">
+                                <span class="badge-icon-large">📅</span>
+                                <span class="badge-name">Consistency</span>
+                            </div>
+                            <div class="profile-badge locked">
+                                <span class="badge-icon-large">🌟</span>
+                                <span class="badge-name">Locked</span>
+                            </div>
+                            <div class="profile-badge locked">
+                                <span class="badge-icon-large">👑</span>
+                                <span class="badge-name">Locked</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Customization -->
+                    <div class="profile-customization-section">
+                        <h3>🎨 Customize Your Profile</h3>
+                        <p class="section-description">Personalize your ActiveLock experience!</p>
+                        
+                        <div class="customization-group">
+                            <h4>Profile Avatar</h4>
+                            <div class="avatar-picker">
+                                <button class="avatar-picker-btn active" data-avatar="😊">😊</button>
+                                <button class="avatar-picker-btn" data-avatar="🏃">🏃</button>
+                                <button class="avatar-picker-btn" data-avatar="💪">💪</button>
+                                <button class="avatar-picker-btn" data-avatar="🚴">🚴</button>
+                                <button class="avatar-picker-btn" data-avatar="🏊">🏊</button>
+                                <button class="avatar-picker-btn" data-avatar="⚡">⚡</button>
+                                <button class="avatar-picker-btn" data-avatar="🔥">🔥</button>
+                                <button class="avatar-picker-btn" data-avatar="⭐">⭐</button>
+                            </div>
+                        </div>
+
+                        <div class="customization-group">
+                            <h4>Username</h4>
+                            <input type="text" id="profile-username-input" class="profile-input" value="Fitness Enthusiast" maxlength="30">
+                            <button id="save-username-btn" class="btn btn-primary">Save Username</button>
+                        </div>
+
+                        <div class="customization-group">
+                            <h4>Fitness Goal</h4>
+                            <select id="fitness-goal-select" class="profile-select">
+                                <option value="general">General Fitness</option>
+                                <option value="weight-loss">Weight Loss</option>
+                                <option value="muscle-gain">Muscle Gain</option>
+                                <option value="endurance">Build Endurance</option>
+                                <option value="flexibility">Improve Flexibility</option>
+                            </select>
+                        </div>
+
+                        <div class="customization-group">
+                            <h4>Favorite Activity</h4>
+                            <div class="activity-picker">
+                                <button class="activity-picker-btn active" data-activity="running">🏃 Running</button>
+                                <button class="activity-picker-btn" data-activity="walking">🚶 Walking</button>
+                                <button class="activity-picker-btn" data-activity="cycling">🚴 Cycling</button>
+                                <button class="activity-picker-btn" data-activity="gym">💪 Gym</button>
+                                <button class="activity-picker-btn" data-activity="yoga">🧘 Yoga</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Stats -->
+                    <div class="profile-stats-section">
+                        <h3>📊 Your Stats</h3>
+                        <div class="stats-grid-profile">
+                            <div class="stat-card-profile">
+                                <div class="stat-icon-profile">🔥</div>
+                                <div class="stat-value-profile">1,234</div>
+                                <div class="stat-label-profile">Total Calories</div>
+                            </div>
+                            <div class="stat-card-profile">
+                                <div class="stat-icon-profile">⏱️</div>
+                                <div class="stat-value-profile">24</div>
+                                <div class="stat-label-profile">Workouts</div>
+                            </div>
+                            <div class="stat-card-profile">
+                                <div class="stat-icon-profile">📅</div>
+                                <div class="stat-value-profile">7</div>
+                                <div class="stat-label-profile">Day Streak</div>
+                            </div>
+                            <div class="stat-card-profile">
+                                <div class="stat-icon-profile">🎯</div>
+                                <div class="stat-value-profile">85%</div>
+                                <div class="stat-label-profile">Goal Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Routes Tab -->
+            <section id="routes-tab" class="tab-content">
+                <div class="routes-section">
+                    <div class="section-header-with-action">
+                        <div>
+                            <h2>🗺️ Walking & Running Routes</h2>
+                            <p class="section-description">Explore popular routes for your workouts</p>
+                        </div>
+                        <button class="action-btn set-route-btn" onclick="showNotification('📍 Set Route feature coming soon!')">
+                            <span>📍 Set Route</span>
+                        </button>
+                    </div>
+                    
+                    <div class="route-filters">
+                        <button class="route-filter-btn active" data-filter="all">All Routes</button>
+                        <button class="route-filter-btn" data-filter="walking">🚶 Walking</button>
+                        <button class="route-filter-btn" data-filter="running">🏃 Running</button>
+                    </div>
+
+                    <div class="routes-grid">
+                        <!-- Route Card 1 -->
+                        <div class="route-card" data-route-type="running">
+                            <div class="route-visual">
+                                <svg class="route-path" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 10 60 Q 50 20, 100 60 T 190 60" stroke="#4CAF50" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                    <circle cx="10" cy="60" r="5" fill="#4CAF50"/>
+                                    <circle cx="190" cy="60" r="5" fill="#f44336"/>
+                                </svg>
+                            </div>
+                            <div class="route-details">
+                                <h3>🏃 Riverside Run</h3>
+                                <p class="route-description">Scenic route along the river with minimal elevation</p>
+                                <div class="route-stats">
+                                    <span class="route-stat">📏 5.2 km</span>
+                                    <span class="route-stat">⏱️ ~25 min</span>
+                                    <span class="route-stat">📈 Flat</span>
+                                </div>
+                                <div class="route-rating">
+                                    <span>⭐⭐⭐⭐⭐</span>
+                                    <span class="rating-count">(124 ratings)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Route Card 2 -->
+                        <div class="route-card" data-route-type="walking">
+                            <div class="route-visual">
+                                <svg class="route-path" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 10 90 L 60 90 L 80 40 L 120 70 L 160 30 L 190 50" stroke="#2196F3" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                    <circle cx="10" cy="90" r="5" fill="#4CAF50"/>
+                                    <circle cx="190" cy="50" r="5" fill="#f44336"/>
+                                </svg>
+                            </div>
+                            <div class="route-details">
+                                <h3>🚶 Park Loop</h3>
+                                <p class="route-description">Relaxing walk through Central Park with shade</p>
+                                <div class="route-stats">
+                                    <span class="route-stat">📏 3.1 km</span>
+                                    <span class="route-stat">⏱️ ~35 min</span>
+                                    <span class="route-stat">📈 Easy</span>
+                                </div>
+                                <div class="route-rating">
+                                    <span>⭐⭐⭐⭐☆</span>
+                                    <span class="rating-count">(89 ratings)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Route Card 3 -->
+                        <div class="route-card" data-route-type="running">
+                            <div class="route-visual">
+                                <svg class="route-path" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 10 80 L 50 60 L 90 90 L 130 40 L 170 70 L 190 50" stroke="#FF9800" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                    <circle cx="10" cy="80" r="5" fill="#4CAF50"/>
+                                    <circle cx="190" cy="50" r="5" fill="#f44336"/>
+                                </svg>
+                            </div>
+                            <div class="route-details">
+                                <h3>🏃 Hill Challenge</h3>
+                                <p class="route-description">Challenging route with elevation gain for serious runners</p>
+                                <div class="route-stats">
+                                    <span class="route-stat">📏 7.5 km</span>
+                                    <span class="route-stat">⏱️ ~40 min</span>
+                                    <span class="route-stat">📈 Hilly</span>
+                                </div>
+                                <div class="route-rating">
+                                    <span>⭐⭐⭐⭐⭐</span>
+                                    <span class="rating-count">(67 ratings)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Route Card 4 -->
+                        <div class="route-card" data-route-type="walking">
+                            <div class="route-visual">
+                                <svg class="route-path" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 10 60 C 50 60, 50 100, 100 100 S 150 60, 190 60" stroke="#9C27B0" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                    <circle cx="10" cy="60" r="5" fill="#4CAF50"/>
+                                    <circle cx="190" cy="60" r="5" fill="#f44336"/>
+                                </svg>
+                            </div>
+                            <div class="route-details">
+                                <h3>🚶 Waterfront Walk</h3>
+                                <p class="route-description">Beautiful waterfront path with stunning views</p>
+                                <div class="route-stats">
+                                    <span class="route-stat">📏 4.0 km</span>
+                                    <span class="route-stat">⏱️ ~45 min</span>
+                                    <span class="route-stat">📈 Flat</span>
+                                </div>
+                                <div class="route-rating">
+                                    <span>⭐⭐⭐⭐⭐</span>
+                                    <span class="rating-count">(156 ratings)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Route Card 5 -->
+                        <div class="route-card" data-route-type="running">
+                            <div class="route-visual">
+                                <svg class="route-path" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 10 60 L 50 60 L 70 40 L 90 60 L 130 60 L 150 80 L 170 60 L 190 60" stroke="#E91E63" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                    <circle cx="10" cy="60" r="5" fill="#4CAF50"/>
+                                    <circle cx="190" cy="60" r="5" fill="#f44336"/>
+                                </svg>
+                            </div>
+                            <div class="route-details">
+                                <h3>🏃 City Circuit</h3>
+                                <p class="route-description">Urban route through downtown with varied terrain</p>
+                                <div class="route-stats">
+                                    <span class="route-stat">📏 6.3 km</span>
+                                    <span class="route-stat">⏱️ ~30 min</span>
+                                    <span class="route-stat">📈 Mixed</span>
+                                </div>
+                                <div class="route-rating">
+                                    <span>⭐⭐⭐⭐☆</span>
+                                    <span class="rating-count">(93 ratings)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Route Card 6 -->
+                        <div class="route-card" data-route-type="walking">
+                            <div class="route-visual">
+                                <svg class="route-path" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 10 70 Q 60 70, 100 50 T 190 70" stroke="#00BCD4" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                    <circle cx="10" cy="70" r="5" fill="#4CAF50"/>
+                                    <circle cx="190" cy="70" r="5" fill="#f44336"/>
+                                </svg>
+                            </div>
+                            <div class="route-details">
+                                <h3>🚶 Nature Trail</h3>
+                                <p class="route-description">Peaceful trail through the woods, perfect for recovery walks</p>
+                                <div class="route-stats">
+                                    <span class="route-stat">📏 2.8 km</span>
+                                    <span class="route-stat">⏱️ ~30 min</span>
+                                    <span class="route-stat">📈 Easy</span>
+                                </div>
+                                <div class="route-rating">
+                                    <span>⭐⭐⭐⭐⭐</span>
+                                    <span class="rating-count">(201 ratings)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="route-legend">
+                        <h4>Route Guide</h4>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <span class="legend-dot" style="background: #4CAF50;"></span>
+                                <span>Start Point</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot" style="background: #f44336;"></span>
+                                <span>End Point</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-line"></span>
+                                <span>Route Path</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Leaderboard Tab -->
+            <section id="leaderboard-tab" class="tab-content">
+                <div class="leaderboard-section">
+                    <div class="section-header-with-action">
+                        <div>
+                            <h2>🏆 Leaderboard</h2>
+                            <p class="section-description">Compete with other users worldwide!</p>
+                        </div>
+                        <button class="action-btn add-friend-btn" onclick="showNotification('👥 Add Friends feature coming soon!')">
+                            <span>➕ Add Friends</span>
+                        </button>
+                    </div>
+                    
+                    <div class="leaderboard-filters">
+                        <button class="filter-btn active" data-filter="global">Global</button>
+                        <button class="filter-btn" data-filter="friends">Friends</button>
+                        <button class="filter-btn" data-filter="weekly">This Week</button>
+                    </div>
+
+                    <div class="leaderboard-list">
+                        <div class="leaderboard-item rank-1">
+                            <div class="rank">🥇</div>
+                            <div class="user-avatar">👤</div>
+                            <div class="user-info">
+                                <div class="username">FitnessKing92</div>
+                                <div class="user-stats">2,450 coins • 156 workouts</div>
+                            </div>
+                            <div class="user-score">2,450</div>
+                        </div>
+                        <div class="leaderboard-item rank-2">
+                            <div class="rank">🥈</div>
+                            <div class="user-avatar">👤</div>
+                            <div class="user-info">
+                                <div class="username">RunnerGirl88</div>
+                                <div class="user-stats">2,120 coins • 142 workouts</div>
+                            </div>
+                            <div class="user-score">2,120</div>
+                        </div>
+                        <div class="leaderboard-item rank-3">
+                            <div class="rank">🥉</div>
+                            <div class="user-avatar">👤</div>
+                            <div class="user-info">
+                                <div class="username">GymBeast</div>
+                                <div class="user-stats">1,890 coins • 98 workouts</div>
+                            </div>
+                            <div class="user-score">1,890</div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div class="rank">4</div>
+                            <div class="user-avatar">👤</div>
+                            <div class="user-info">
+                                <div class="username">YogaMaster</div>
+                                <div class="user-stats">1,650 coins • 89 workouts</div>
+                            </div>
+                            <div class="user-score">1,650</div>
+                        </div>
+                        <div class="leaderboard-item current-user">
+                            <div class="rank">5</div>
+                            <div class="user-avatar">👤</div>
+                            <div class="user-info">
+                                <div class="username">You</div>
+                                <div class="user-stats">1,250 coins • 24 workouts</div>
+                            </div>
+                            <div class="user-score">1,250</div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div class="rank">6</div>
+                            <div class="user-avatar">👤</div>
+                            <div class="user-info">
+                                <div class="username">CycleChamp</div>
+                                <div class="user-stats">1,100 coins • 67 workouts</div>
+                            </div>
+                            <div class="user-score">1,100</div>
+                        </div>
+                        <div class="leaderboard-item">
+                            <div class="rank">7</div>
+                            <div class="user-avatar">👤</div>
+                            <div class="user-info">
+                                <div class="username">ActiveLife23</div>
+                                <div class="user-stats">980 coins • 55 workouts</div>
+                            </div>
+                            <div class="user-score">980</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Tab -->
+            <section id="settings-tab" class="tab-content">
+                <div class="settings-section">
+                    <h2>⚙️ Settings</h2>
+                    
+                    <div class="settings-group">
+                        <h3>🎨 Appearance</h3>
+                        <p class="settings-description">Customize the app's visual theme</p>
+                        
+                        <div class="setting-item">
+                            <label class="toggle-label">
+                                <span>Dark Mode</span>
+                                <input type="checkbox" id="theme-toggle">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-group">
+                        <h3>📱 Notification Blocking</h3>
+                        <p class="settings-description">Block notifications during exercise, except from selected contacts</p>
+                        
+                        <div class="setting-item">
+                            <label class="toggle-label">
+                                <span>Enable notification blocking</span>
+                                <input type="checkbox" id="block-notifications" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="contacts-section" id="contacts-section">
+                            <h4>Allowed Contacts</h4>
+                            <p class="contacts-description">These contacts can reach you during exercise</p>
+                            
+                            <div class="contact-list">
+                                <div class="contact-item">
+                                    <div class="contact-avatar">👤</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Mom</div>
+                                        <div class="contact-number">+1 555-0123</div>
+                                    </div>
+                                    <button class="btn-icon remove-contact" data-contact="mom">✕</button>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-avatar">👤</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Emergency Services</div>
+                                        <div class="contact-number">911</div>
+                                    </div>
+                                    <button class="btn-icon remove-contact" data-contact="emergency">✕</button>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-avatar">👤</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Best Friend</div>
+                                        <div class="contact-number">+1 555-0456</div>
+                                    </div>
+                                    <button class="btn-icon remove-contact" data-contact="friend">✕</button>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-secondary" id="add-contact-btn">
+                                + Add Contact
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>🎯 Activity Goals</h3>
+                        
+                        <div class="setting-item">
+                            <label>
+                                <span>Daily workout goal</span>
+                                <input type="number" id="daily-goal" value="30" min="10" max="180">
+                                <span class="input-suffix">minutes</span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <label>
+                                <span>Weekly workout target</span>
+                                <input type="number" id="weekly-goal" value="5" min="1" max="7">
+                                <span class="input-suffix">days</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>🔔 Preferences</h3>
+                        
+                        <div class="setting-item">
+                            <label class="toggle-label">
+                                <span>Sound effects</span>
+                                <input type="checkbox" id="sound-effects" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <label class="toggle-label">
+                                <span>Vibration feedback</span>
+                                <input type="checkbox" id="vibration" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <label class="toggle-label">
+                                <span>Show on leaderboard</span>
+                                <input type="checkbox" id="leaderboard-visible" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Notification Toast -->
+        <div class="notification-toast" id="notification-toast">
+            <span class="toast-icon">✓</span>
+            <span class="toast-message"></span>
+        </div>
+
+        <!-- Add Contact Modal -->
+        <div class="modal" id="add-contact-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add Contact</h3>
+                    <button class="modal-close" id="close-modal">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="contact-name">Contact Name</label>
+                        <input type="text" id="contact-name" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-phone">Phone Number</label>
+                        <input type="tel" id="contact-phone" placeholder="+1 555-0000">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="cancel-contact">Cancel</button>
+                    <button class="btn btn-primary" id="save-contact">Add Contact</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
