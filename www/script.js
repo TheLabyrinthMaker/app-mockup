@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeLeaderboard();
     updateCurrencyDisplay();
     initializeGoalsProgress();
-    
+
     // Initialize new features
     initializeThemeToggle();
     initializeRestTimer();
@@ -246,7 +246,7 @@ function initializeSettings() {
 function removeContact(contactId) {
     const contactButton = document.querySelector(`[data-contact="${contactId}"]`);
     if (!contactButton) return; // Guard against missing element
-    
+
     const contactItem = contactButton.closest('.contact-item');
     contactItem.style.opacity = '0';
     contactItem.style.transform = 'translateX(-20px)';
@@ -396,7 +396,7 @@ window.addEventListener('beforeunload', (e) => {
 
 // Demo: Add some visual feedback on interactions
 document.querySelectorAll('.btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
+    btn.addEventListener('click', function (e) {
         if (appState.settings.vibration && navigator.vibrate) {
             navigator.vibrate(50);
         }
@@ -457,37 +457,37 @@ function initializeGoalsProgress() {
 function updateGoalsProgress() {
     const progressFill = document.getElementById('progress-fill');
     const milestones = document.querySelectorAll('.milestone');
-    
+
     // Update progress bar based on elapsed time
     // Max progress bar is 30 minutes (1800 seconds)
     const maxTime = 1800;
     const progressPercentage = Math.min((appState.elapsedTime / maxTime) * 100, 100);
-    
+
     if (progressFill) {
         progressFill.style.width = `${progressPercentage}%`;
     }
-    
+
     // Check and update milestones
     milestones.forEach(milestone => {
         const targetTime = parseInt(milestone.dataset.time);
         const reward = parseInt(milestone.dataset.reward);
-        
+
         if (appState.elapsedTime >= targetTime) {
             if (!milestone.classList.contains('completed') && !appState.reachedMilestones.includes(targetTime)) {
                 // Milestone reached!
                 milestone.classList.add('reached');
-                
+
                 // Add bonus coins
                 appState.currency += reward;
                 updateCurrencyDisplay();
-                
+
                 // Mark as completed after animation
                 setTimeout(() => {
                     milestone.classList.remove('reached');
                     milestone.classList.add('completed');
                     appState.reachedMilestones.push(targetTime);
                 }, 500);
-                
+
                 // Show notification
                 const minutes = targetTime / 60;
                 showNotification(`🎯 Milestone reached! ${minutes} minutes completed. +${reward} coins!`);
@@ -496,7 +496,7 @@ function updateGoalsProgress() {
             }
         }
     });
-    
+
     updateDailyProgress();
 }
 
@@ -514,7 +514,7 @@ function resetGoalsProgress() {
     milestones.forEach(milestone => {
         milestone.classList.remove('reached', 'completed');
     });
-    
+
     const progressFill = document.getElementById('progress-fill');
     if (progressFill) {
         progressFill.style.width = '0%';
@@ -530,7 +530,7 @@ console.log('Tip: Click the ActiveLock title 5 times for a bonus! 😉');
 function initializeThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
     const savedTheme = localStorage.getItem('theme') || 'dark';
-    
+
     // Set initial theme (default is dark based on CSS)
     if (savedTheme === 'light') {
         document.body.classList.add('light-mode');
@@ -542,7 +542,7 @@ function initializeThemeToggle() {
             themeToggle.checked = true; // Checked = dark mode
         }
     }
-    
+
     if (themeToggle) {
         themeToggle.addEventListener('change', () => {
             if (themeToggle.checked) {
@@ -572,25 +572,25 @@ function initializeRestTimer() {
     const resetBtn = document.getElementById('reset-rest-timer');
     const presetBtns = document.querySelectorAll('.preset-btn');
     const setCustomBtn = document.getElementById('set-custom-rest-timer');
-    
+
     if (startBtn) startBtn.addEventListener('click', startRestTimer);
     if (pauseBtn) pauseBtn.addEventListener('click', pauseRestTimer);
     if (resetBtn) resetBtn.addEventListener('click', resetRestTimer);
-    
+
     presetBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const seconds = parseInt(btn.dataset.seconds);
             setRestTimer(seconds);
-            
+
             presetBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         });
     });
-    
+
     if (setCustomBtn) {
         setCustomBtn.addEventListener('click', setCustomRestTimer);
     }
-    
+
     updateRestTimerDisplay();
 }
 
@@ -598,7 +598,7 @@ function setRestTimer(seconds) {
     restTimerState.totalSeconds = seconds;
     restTimerState.currentSeconds = seconds;
     updateRestTimerDisplay();
-    
+
     if (restTimerState.isRunning) {
         pauseRestTimer();
     }
@@ -608,7 +608,7 @@ function setCustomRestTimer() {
     const minutes = parseInt(document.getElementById('custom-rest-minutes').value) || 0;
     const seconds = parseInt(document.getElementById('custom-rest-seconds').value) || 0;
     const totalSeconds = minutes * 60 + seconds;
-    
+
     if (totalSeconds > 0) {
         setRestTimer(totalSeconds);
     }
@@ -617,7 +617,7 @@ function setCustomRestTimer() {
 function startRestTimer() {
     if (!restTimerState.isRunning) {
         restTimerState.isRunning = true;
-        
+
         restTimerState.interval = setInterval(() => {
             if (restTimerState.currentSeconds > 0) {
                 restTimerState.currentSeconds--;
@@ -644,26 +644,26 @@ function resetRestTimer() {
 
 function restTimerComplete() {
     pauseRestTimer();
-    
+
     const soundAlert = document.getElementById('rest-sound-alert');
     if (soundAlert && soundAlert.checked) {
         try {
             const audio = new AudioContext();
             const oscillator = audio.createOscillator();
             const gainNode = audio.createGain();
-            
+
             oscillator.connect(gainNode);
             gainNode.connect(audio.destination);
-            
+
             oscillator.frequency.value = 800;
             oscillator.type = 'sine';
-            
+
             gainNode.gain.setValueAtTime(0.3, audio.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.5);
-            
+
             oscillator.start(audio.currentTime);
             oscillator.stop(audio.currentTime + 0.5);
-            
+
             // Clean up AudioContext after use
             setTimeout(() => {
                 audio.close();
@@ -672,11 +672,11 @@ function restTimerComplete() {
             console.warn('Unable to play sound alert:', error);
         }
     }
-    
+
     const timerValue = document.getElementById('rest-timer-value');
     if (timerValue) {
         timerValue.textContent = 'Done!';
-        
+
         setTimeout(() => {
             const autoStart = document.getElementById('rest-auto-start');
             if (autoStart && autoStart.checked) {
@@ -692,10 +692,10 @@ function restTimerComplete() {
 function updateRestTimerDisplay() {
     const minutes = Math.floor(restTimerState.currentSeconds / 60);
     const seconds = restTimerState.currentSeconds % 60;
-    
+
     const display = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     const timerValue = document.getElementById('rest-timer-value');
-    
+
     if (timerValue) {
         timerValue.textContent = display;
     }
@@ -704,12 +704,12 @@ function updateRestTimerDisplay() {
 // Routes Filtering
 function initializeRoutesFilter() {
     const filterBtns = document.querySelectorAll('.route-filter-btn');
-    
+
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const filter = btn.dataset.filter;
             filterRoutes(filter);
-            
+
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         });
@@ -718,7 +718,7 @@ function initializeRoutesFilter() {
 
 function filterRoutes(filter) {
     const routes = document.querySelectorAll('.route-card');
-    
+
     routes.forEach(card => {
         if (filter === 'all') {
             card.classList.remove('hidden');
@@ -743,13 +743,13 @@ function initializeProfileCustomization() {
     const saveUsernameBtn = document.getElementById('save-username-btn');
     const profileUsername = document.getElementById('profile-username');
     const fitnessGoalSelect = document.getElementById('fitness-goal-select');
-    
+
     // Load saved profile data
     const savedAvatar = localStorage.getItem('profileAvatar') || '😊';
     const savedUsername = localStorage.getItem('profileUsername') || 'Fitness Enthusiast';
     const savedActivity = localStorage.getItem('favoriteActivity') || 'running';
     const savedGoal = localStorage.getItem('fitnessGoal') || 'general';
-    
+
     // Set initial values
     if (profileAvatarDisplay) {
         profileAvatarDisplay.textContent = savedAvatar;
@@ -766,51 +766,51 @@ function initializeProfileCustomization() {
     if (fitnessGoalSelect) {
         fitnessGoalSelect.value = savedGoal;
     }
-    
+
     // Set active states
     avatarPicker.forEach(btn => {
         if (btn.dataset.avatar === savedAvatar) {
             btn.classList.add('active');
         }
     });
-    
+
     activityPicker.forEach(btn => {
         if (btn.dataset.activity === savedActivity) {
             btn.classList.add('active');
         }
     });
-    
+
     // Avatar picker
     avatarPicker.forEach(btn => {
         btn.addEventListener('click', () => {
             const avatar = btn.dataset.avatar;
-            
+
             avatarPicker.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
+
             if (profileAvatarDisplay) {
                 profileAvatarDisplay.textContent = avatar;
             }
             if (headerAvatar) {
                 headerAvatar.textContent = avatar;
             }
-            
+
             localStorage.setItem('profileAvatar', avatar);
             showNotification('Avatar updated!');
         });
     });
-    
+
     // Activity picker
     activityPicker.forEach(btn => {
         btn.addEventListener('click', () => {
             activityPicker.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
+
             localStorage.setItem('favoriteActivity', btn.dataset.activity);
             showNotification('Favorite activity updated!');
         });
     });
-    
+
     // Save username
     if (saveUsernameBtn) {
         saveUsernameBtn.addEventListener('click', () => {
@@ -824,7 +824,7 @@ function initializeProfileCustomization() {
             }
         });
     }
-    
+
     // Fitness goal select
     if (fitnessGoalSelect) {
         fitnessGoalSelect.addEventListener('change', () => {
@@ -839,15 +839,15 @@ function initializeShop() {
     const shopCategoryBtns = document.querySelectorAll('.shop-category-btn');
     const shopBuyBtns = document.querySelectorAll('.shop-buy-btn');
     const shopCurrency = document.getElementById('shop-currency');
-    
+
     // Load purchased items from localStorage
     let purchasedItems = JSON.parse(localStorage.getItem('purchasedItems') || '[]');
-    
+
     // Sync shop currency display with appState
     if (shopCurrency) {
         shopCurrency.textContent = appState.currency;
     }
-    
+
     // Update UI for purchased items
     purchasedItems.forEach(itemId => {
         const itemButton = document.querySelector(`[data-item="${itemId}"]`);
@@ -862,16 +862,16 @@ function initializeShop() {
             itemButton.disabled = true;
         }
     });
-    
+
     // Category filtering
     shopCategoryBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const category = btn.dataset.category;
-            
+
             // Update active button
             shopCategoryBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
+
             // Show/hide sections
             const sections = document.querySelectorAll('.shop-category-section');
             sections.forEach(section => {
@@ -885,7 +885,7 @@ function initializeShop() {
             });
         });
     });
-    
+
     // Purchase functionality
     shopBuyBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -893,26 +893,26 @@ function initializeShop() {
             const price = parseInt(btn.dataset.price);
             const itemId = btn.dataset.item;
             const itemType = btn.dataset.type;
-            
+
             // Check if user has enough coins
             if (appState.currency < price) {
                 showNotification(`Not enough coins! You need ${price - appState.currency} more coins.`);
                 return;
             }
-            
+
             // Confirm purchase
             if (confirm(`Purchase ${itemName} for ${price} coins?`)) {
                 // Deduct coins
                 appState.currency -= price;
                 updateCurrencyDisplay();
-                
+
                 // Update shop currency display
                 if (shopCurrency) shopCurrency.textContent = appState.currency;
-                
+
                 // Mark as purchased
                 purchasedItems.push(itemId);
                 localStorage.setItem('purchasedItems', JSON.stringify(purchasedItems));
-                
+
                 // Update UI
                 const shopItem = btn.closest('.shop-item');
                 shopItem.classList.add('owned');
@@ -922,10 +922,10 @@ function initializeShop() {
                 }
                 btn.textContent = 'Owned';
                 btn.disabled = true;
-                
+
                 // Show success message
                 showNotification(`✨ ${itemName} purchased successfully!`);
-                
+
                 // Apply item effects based on type
                 applyItemEffect(itemType, itemId);
             }
@@ -935,7 +935,7 @@ function initializeShop() {
 
 // Apply purchased item effects
 function applyItemEffect(type, itemId) {
-    switch(type) {
+    switch (type) {
         case 'booster':
             // Store active boosters
             let activeBoosters = JSON.parse(localStorage.getItem('activeBoosters') || '[]');
@@ -964,3 +964,13 @@ function applyItemEffect(type, itemId) {
             break;
     }
 }
+document.addEventListener('ionBackButton', (ev) => {
+    ev.detail.register(10, () => {
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            // If no history, it closes the app
+            navigator.app.exitApp();
+        }
+    });
+});

@@ -1,0 +1,27 @@
+{
+  "name": "app-mockup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheLabyrinthMaker/app-mockup.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/TheLabyrinthMaker/app-mockup/issues"
+  },
+  "homepage": "https://github.com/TheLabyrinthMaker/app-mockup#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.0.1",
+    "@capacitor/app": "^8.0.0",
+    "@capacitor/cli": "^2.5.0",
+    "@capacitor/core": "^8.0.1"
+  }
+}
